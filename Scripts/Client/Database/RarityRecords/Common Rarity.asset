@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8ff05c22caa18d4f84be116a8b99fcc, type: 3}
+  m_Name: Common Rarity
+  m_EditorClassIdentifier: 
+  rarityId: Common
+  mainColor: {r: 0.13241176, g: 0.8901961, b: 0.07843138, a: 1}
+  raritySprite: {fileID: 21300000, guid: fdaa6bdbba2ae8d4db3d82b98289c81f, type: 3}

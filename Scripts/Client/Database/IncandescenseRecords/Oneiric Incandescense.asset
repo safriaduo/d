@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fec2053fb88f2cc4e91523e7f5371f45, type: 3}
+  m_Name: Oneiric Incandescense
+  m_EditorClassIdentifier: 
+  incandescenseId: Oneiric
+  deckFrame: {fileID: 21300000, guid: 66aa706d67b726c4f9896af16d2adec8, type: 3}
+  cardSetFrame: {fileID: 21300000, guid: e12dba43be10448848b4819d1a15b305, type: 3}
+  actionFrame: {fileID: 21300000, guid: b6a7d9c4f05dde740ba2277063a3c78f, type: 3}
+  artifactFrame: {fileID: 21300000, guid: 9a6e82ddf5d88f841b28b77c7a56fd58, type: 3}
+  creatureHorizontalFrame: {fileID: 21300000, guid: fbbddf9de23c6404996ab7fb11c5323c,
+    type: 3}
+  creatureTopFrame: {fileID: 21300000, guid: 451feacf0f4ce734b95bebd13ae99570, type: 3}
+  creatureBottomFrame: {fileID: 21300000, guid: 949be877278b036459b6094b098bdf52,
+    type: 3}
+  creatureDivider: {fileID: 21300000, guid: 547070deaf8c02a48af8fc61ac212730, type: 3}
+  worldFrame: {fileID: 21300000, guid: fb515adf5632d514cb1e44f0cae42648, type: 3}

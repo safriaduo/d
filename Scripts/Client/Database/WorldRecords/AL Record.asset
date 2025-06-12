@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b44eb33161844b941ad96d8bab8bfb61, type: 3}
+  m_Name: AL Record
+  m_EditorClassIdentifier: 
+  worldId: Ancestral Lodge
+  worldIcon: {fileID: 21300000, guid: 253b164f24881c445b9fa0131053501f, type: 3}
+  mainColor: {r: 0.95686275, g: 0.8235294, b: 0.43137255, a: 1}
+  backgroundColor: {r: 0.043137256, g: 0.12156863, b: 0.25882354, a: 1}
+  bodyBackground: {fileID: 21300000, guid: c55a8f64af1ac864380f39ed85e67965, type: 3}
+  worldButtonMaterial: {fileID: 2100000, guid: e14ec11d45d644a8839a8f6929a80282, type: 2}
+  worldBoard: {fileID: 1887743751427910411, guid: 422a944a137d06b458101e4fff38fe85,
+    type: 3}

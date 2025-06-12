@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fec2053fb88f2cc4e91523e7f5371f45, type: 3}
+  m_Name: Blazing Incandescense
+  m_EditorClassIdentifier: 
+  incandescenseId: Blazing
+  deckFrame: {fileID: 21300000, guid: 0ee7ffe7b80dfaa46ba6ae2c6d7fc4af, type: 3}
+  cardSetFrame: {fileID: 21300000, guid: 7163c5c09d45b4a4ab114ccd08ba636f, type: 3}
+  actionFrame: {fileID: 21300000, guid: 1d707d418e4e209469ffd4d5b901a158, type: 3}
+  artifactFrame: {fileID: 21300000, guid: 54b0fe946d66b6d439490c9f2d5ba152, type: 3}
+  creatureHorizontalFrame: {fileID: 21300000, guid: 3bff4ebc57529e54cb7f4e98173f59ca,
+    type: 3}
+  creatureTopFrame: {fileID: 21300000, guid: 63c4b3d4197b4134cb17899ccefe21d8, type: 3}
+  creatureBottomFrame: {fileID: 21300000, guid: a52f7fc04f1118f499c8549658bca375,
+    type: 3}
+  creatureDivider: {fileID: 21300000, guid: 70a4015d2d45a0046b08db3802e2252f, type: 3}
+  worldFrame: {fileID: 21300000, guid: f72cb18668ef20d45870f7330f53e451, type: 3}
