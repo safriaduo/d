@@ -2,6 +2,7 @@
 using Nakama;
 using System.Threading.Tasks;
 using UnityEngine;
+using Dawnshard.Menu;
 
 public class FriendEntry : UserEntry
 {
@@ -82,14 +83,13 @@ public class FriendEntry : UserEntry
     /// <summary>
     /// Send an invitation to the player to fight
     /// </summary>
-    public async void SendMatchInvitationAsync()
+    [SerializeField] private FriendlyMatchPopup friendlyPopup;
+
+    public void SendMatchInvitationAsync()
     {
-        //add asset referencer and uncomment
-        //NakamaConnection conn = AssetReferencer.Instance.connection;
-
-        //var match = await conn.FindMatch(false);
-        //conn.SendFriendlyMatchInvitation(user.Id, match.matchId);
-
-        //FriendlyMatchState.StartFriendlyMatch(user.Username, match.matchId);
+        if(friendlyPopup != null)
+        {
+            friendlyPopup.OpenAsSender(user.Id);
+        }
     }
 }
