@@ -144,6 +144,11 @@ namespace Dawnshard.Presenters
             cardPresenters.Clear();
         }
 
+        public static ICardPresenter GetCardPresenter(int cardId)
+        {
+            return cardPresenters.GetValueOrDefault(cardId, null);
+        }
+
         public void RemoveCard(int cardId)
         {
             Model.NumCards--;

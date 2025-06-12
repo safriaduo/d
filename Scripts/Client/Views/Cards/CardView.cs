@@ -471,6 +471,34 @@ namespace Dawnshard.Views
             OnUserInput?.Invoke(UserInput.MouseUp);
         }
 
+        public float GetMoveDuration(string origZone, string destZone)
+        {
+            float duration = 0f;
+            var origZoneAnimations = animationByMovementIds.GetAllItems(origZone);
+            foreach (var dict in origZoneAnimations)
+            {
+                var moveFeedbacks = dict.GetAllItems(destZone);
+                foreach (var feedbacks in moveFeedbacks)
+                {
+                    if (feedbacks != null)
+                    {
+                        duration = Mathf.Max(duration, feedbacks.TotalDuration);
+                    }
+                }
+            }
+
+            return duration;
+        }
+
+        public float ReapDuration => reapAnimation != null ? reapAnimation.TotalDuration : 0f;
+
+        public float FightDuration => fightAnimation != null ? fightAnimation.TotalDuration : 0f;
+
+        public float ReadyChangeDuration => Mathf.Max(growFrameAnimation != null ? growFrameAnimation.TotalDuration : 0f,
+            shrinkFrameAnimation != null ? shrinkFrameAnimation.TotalDuration : 0f);
+
+        public float AbilityDuration => triggerActivatedAnimation != null ? triggerActivatedAnimation.TotalDuration : 0f;
+
 
         [Serializable]
         public class SettingByZone
