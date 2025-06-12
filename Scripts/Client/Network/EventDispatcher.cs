@@ -226,11 +226,14 @@ namespace Dawnshard.Network
 
                         if (gameEvent.CardMovedTriggered.DestZoneId == Constants.GraveyardZone && gameEvent.CardMovedTriggered.OrigZoneId != Constants.ActionZone)
                             break;
-                        if (gameEvent.CardMovedTriggered.DestZoneId == Constants.BoardZone)
-                            yield return new WaitForSeconds(2f);
-                        else
+                        if (gameEvent.CardMovedTriggered.DestZoneId != Constants.GraveyardZone ||
+                            gameEvent.CardMovedTriggered.OrigZoneId == Constants.ActionZone)
                         {
-                            yield return new WaitForSeconds(1.2f);
+                            var cardPresenter = ZonePresenter.GetCardPresenter(gameEvent.CardMovedTriggered.CardId);
+                            var duration = cardPresenter?.GetMoveDuration(gameEvent.CardMovedTriggered.OrigZoneId,
+                                gameEvent.CardMovedTriggered.DestZoneId) ?? 0f;
+                            if (duration > 0f)
+                                yield return new WaitForSeconds(duration);
                         }
 
                         break;
@@ -264,7 +267,11 @@ namespace Dawnshard.Network
                     {
                         eventBusManager.CardEventBus.Publish(gameEvent.CardReadyChanged.CardId,
                             new CardReadyChangedEvent(gameEvent.CardReadyChanged.CanFight, gameEvent.CardReadyChanged.CanReap));
-                        yield return new WaitForSeconds(1f);
+
+                        var readyPresenter = ZonePresenter.GetCardPresenter(gameEvent.CardReadyChanged.CardId);
+                        var readyDuration = readyPresenter?.ReadyChangeDuration ?? 0f;
+                        if (readyDuration > 0f)
+                            yield return new WaitForSeconds(readyDuration);
 
                         break;
                     }
@@ -290,7 +297,10 @@ namespace Dawnshard.Network
                         eventBusManager.CardEventBus?.Publish(gameEvent.PlayerAbilityTriggered.SourceCardId,
                             new PlayerAbilityTriggeredEvent(gameEvent.PlayerAbilityTriggered.Ability.TriggerID, gameEvent.PlayerAbilityTriggered.Ability.EffectID, gameEvent.PlayerAbilityTriggered.SourceCardId, gameEvent.PlayerAbilityTriggered.TargetPlayerIds.ToList()));
 
-                        yield return new WaitForSeconds(1f);
+                        var abilityPresenter = ZonePresenter.GetCardPresenter(gameEvent.PlayerAbilityTriggered.SourceCardId);
+                        var abilityDuration = abilityPresenter?.AbilityDuration ?? 0f;
+                        if (abilityDuration > 0f)
+                            yield return new WaitForSeconds(abilityDuration);
 
                         break;
                     }
@@ -307,7 +317,10 @@ namespace Dawnshard.Network
                         eventBusManager.CardEventBus.Publish(gameEvent.ReapCreatureEvent.CardId,
                             new ReapCreatureTriggered(gameEvent.ReapCreatureEvent.CardId));
 
-                        yield return new WaitForSeconds(1f);
+                        var reapPresenter = ZonePresenter.GetCardPresenter(gameEvent.ReapCreatureEvent.CardId);
+                        var reapDuration = reapPresenter?.ReapDuration ?? 0f;
+                        if (reapDuration > 0f)
+                            yield return new WaitForSeconds(reapDuration);
 
                         break;
                     }
@@ -317,10 +330,10 @@ namespace Dawnshard.Network
                         eventBusManager.CardEventBus.Publish(gameEvent.FightCreatureEvent.DefenderId,
                             new FightCreatureTriggered(gameEvent.FightCreatureEvent.AttackerId, gameEvent.FightCreatureEvent.DefenderId));
 
-                        //eventBusManager.CardEventBus.Publish(gameEvent.FightCreatureEvent.DefenderId,
-                        //    new FightCreatureTriggered(gameEvent.FightCreatureEvent.AttackerId, gameEvent.FightCreatureEvent.DefenderId));
-
-                        yield return new WaitForSeconds(1f);
+                        var fightPresenter = ZonePresenter.GetCardPresenter(gameEvent.FightCreatureEvent.AttackerId);
+                        var fightDuration = fightPresenter?.FightDuration ?? 0f;
+                        if (fightDuration > 0f)
+                            yield return new WaitForSeconds(fightDuration);
 
                         break;
                     }

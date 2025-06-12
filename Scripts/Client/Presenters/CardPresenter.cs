@@ -476,6 +476,19 @@ namespace Dawnshard.Presenters
         {
             CardView.SetSortingGroupOrderInLayer(i);
         }
+
+        public float GetMoveDuration(string origZone, string destZoneId)
+        {
+            return CardView.GetMoveDuration(origZone, destZoneId);
+        }
+
+        public float ReapDuration => CardView.ReapDuration;
+
+        public float FightDuration => CardView.FightDuration;
+
+        public float ReadyChangeDuration => CardView.ReadyChangeDuration;
+
+        public float AbilityDuration => CardView.AbilityDuration;
         #endregion
     }
 }
