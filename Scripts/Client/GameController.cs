@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour
     private const string ADD_ALTURA_CONNECTION = "altura_guard_connect";
     private const string REVOKE_ALTURA_CONNECTION = "altura_guard_revoke";
     private const string AI_MATCH_RPC = "ai_match";
+    private const string FRIENDLY_MATCH_RPC = "friendly_match";
     private const string SAVE_DECK_RPC = "save_deck";
 
     public List<DeckModel> Decks { get; private set; }
@@ -60,6 +61,8 @@ public class GameController : MonoBehaviour
     public string AlturaToken => PlayerPrefs.GetString(Constants.AlturaToken);
 
     public bool IsInRankedMatch { get; private set; }
+
+    public List<FriendChallenge> PendingFriendChallenges { get; } = new();
 
 
 
@@ -367,6 +370,18 @@ public class GameController : MonoBehaviour
         public bool IsRanked;
     }
 
+    private class FriendlyMatchRequest
+    {
+        [JsonProperty("friendId")]
+        public string FriendID { get; set; }
+    }
+
+    public class FriendChallenge
+    {
+        public string MatchId;
+        public string Username;
+    }
+
     /// <summary>
     /// Starts a match against the AI. You must select both the deck you want to use and the deck the AI will use
     /// </summary>
@@ -384,6 +399,41 @@ public class GameController : MonoBehaviour
         currentMatch = await Socket.JoinMatchAsync(matchId, new Dictionary<string, string>()
         {
             { PLAYER_DECK_METADATA, playerDeckId},
+        });
+
+        SceneManager.LoadScene(Constants.GameScene);
+
+        StartMatch(currentMatch);
+    }
+
+    public async Task StartFriendlyMatch(string friendId, string deckId)
+    {
+        var request = new FriendlyMatchRequest
+        {
+            FriendID = friendId
+        };
+
+        var matchCreated = await Socket.RpcAsync(FRIENDLY_MATCH_RPC, JsonConvert.SerializeObject(request));
+
+        matchId = matchCreated.Payload;
+
+        currentMatch = await Socket.JoinMatchAsync(matchId, new Dictionary<string, string>()
+        {
+            { PLAYER_DECK_METADATA, deckId },
+        });
+
+        SceneManager.LoadScene(Constants.GameScene);
+
+        StartMatch(currentMatch);
+    }
+
+    public async Task AcceptFriendlyMatch(string friendlyMatchId, string deckId)
+    {
+        matchId = friendlyMatchId;
+
+        currentMatch = await Socket.JoinMatchAsync(matchId, new Dictionary<string, string>()
+        {
+            { PLAYER_DECK_METADATA, deckId },
         });
 
         SceneManager.LoadScene(Constants.GameScene);
@@ -708,6 +758,16 @@ public class GameController : MonoBehaviour
     public async void AddFriend(string username)
     {
         await Client.AddFriendsAsync(Session, new List<string>(), new List<string> { username });
+    }
+
+    public void AddFriendChallenge(string matchId, string username)
+    {
+        PendingFriendChallenges.Add(new FriendChallenge { MatchId = matchId, Username = username });
+    }
+
+    public void RemoveFriendChallenge(FriendChallenge challenge)
+    {
+        PendingFriendChallenges.Remove(challenge);
     }
 
     private class SaveDeckRequest
