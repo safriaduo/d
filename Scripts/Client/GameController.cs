@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour
     private const string ADD_ALTURA_CONNECTION = "altura_guard_connect";
     private const string REVOKE_ALTURA_CONNECTION = "altura_guard_revoke";
     private const string AI_MATCH_RPC = "ai_match";
+    private const string FRIENDLY_MATCH_RPC = "friendly_match";
     private const string SAVE_DECK_RPC = "save_deck";
 
     public List<DeckModel> Decks { get; private set; }
@@ -425,6 +426,32 @@ public class GameController : MonoBehaviour
     }
 
     /// <summary>
+    /// Send a friendly match request to a friend and join the created match
+    /// </summary>
+    public async Task<string> SendFriendlyMatchRequest(string deckId, string friendId)
+    {
+        var request = new FriendlyMatchRequest
+        {
+            FriendID = friendId,
+        };
+
+        var matchCreated = await Socket.RpcAsync(FRIENDLY_MATCH_RPC, JsonConvert.SerializeObject(request));
+
+        matchId = matchCreated.Payload;
+
+        currentMatch = await Socket.JoinMatchAsync(matchId, new Dictionary<string, string>
+        {
+            { PLAYER_DECK_METADATA, deckId },
+        });
+
+        SceneManager.LoadScene(Constants.GameScene);
+
+        StartMatch(currentMatch);
+
+        return matchId;
+    }
+
+    /// <summary>
     /// Starts the matchmaking in a specified game mode
     /// </summary>
     public async Task FindMatch(string deckId, string gameMode = Constants.RankedMode)
@@ -488,6 +515,20 @@ public class GameController : MonoBehaviour
         Socket.ReceivedMatchmakerMatched -= EnqueueMatchSearch;
 
         await Socket.RemoveMatchmakerAsync(matchmakingTicket);
+    }
+
+    public async Task AcceptFriendlyMatch(string matchId, string deckId)
+    {
+        this.matchId = matchId;
+
+        currentMatch = await Socket.JoinMatchAsync(matchId, new Dictionary<string, string>
+        {
+            { PLAYER_DECK_METADATA, deckId },
+        });
+
+        SceneManager.LoadScene(Constants.GameScene);
+
+        StartMatch(currentMatch);
     }
 
     private void EnqueueMatchSearch(IMatchmakerMatched m)
@@ -840,6 +881,12 @@ public class GameController : MonoBehaviour
     {
         [JsonProperty("token")]
         public string Token { get; set; }
+    }
+
+    private class FriendlyMatchRequest
+    {
+        [JsonProperty("friendId")]
+        public string FriendID { get; set; }
     }
 
     public async Task WriteStorageObject(IApiWriteStorageObject[] storageObjects)
