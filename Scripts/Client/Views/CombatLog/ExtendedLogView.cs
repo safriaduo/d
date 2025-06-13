@@ -16,6 +16,7 @@ namespace Dawnshard.Views
         [SerializeField] private Transform sourceCardParent;
         [SerializeField] private Transform targetCardGrid;
         [SerializeField] private Transform targetCardTemplate;
+        [SerializeField] private GameObject unknownTargetPrefab;
         [SerializeField] private Transform singleTargetParent;
         [SerializeField] private Transform singleTargetView;
 
@@ -77,9 +78,17 @@ namespace Dawnshard.Views
             foreach (CardModel targetModel in targetCards)
             {
                 Transform targetCardViewParent = Instantiate(targetCardTemplate, targetCardGrid);
-                CardFactory.Instance.CreateBaseCard(
-                    targetModel,
-                    targetCardViewParent.gameObject.GetComponent<ExpandedLogEntryCard>().GetCardParentLogEntry()).ToggleHighlight(true, targetModel.IsOwnerLocalPlayer ? LOCAL_PLAYER_COLOR : OPPONENT_PLAYER_COLOR);
+                var cardParent = targetCardViewParent.gameObject.GetComponent<ExpandedLogEntryCard>().GetCardParentLogEntry();
+                if (targetModel != null)
+                {
+                    CardFactory.Instance.CreateBaseCard(targetModel, cardParent)
+                        .ToggleHighlight(true, targetModel.IsOwnerLocalPlayer ? LOCAL_PLAYER_COLOR : OPPONENT_PLAYER_COLOR);
+                }
+                else
+                {
+                    if (unknownTargetPrefab != null)
+                        Instantiate(unknownTargetPrefab, cardParent, false);
+                }
 
             }
         }
@@ -91,7 +100,16 @@ namespace Dawnshard.Views
         {
             singleTargetView.gameObject.SetActive(true);
             targetCardGrid.gameObject.SetActive(false);
-            CardFactory.Instance.CreateBaseCard(targetModel, singleTargetParent).ToggleHighlight(true, targetModel.IsOwnerLocalPlayer ? LOCAL_PLAYER_COLOR : OPPONENT_PLAYER_COLOR);
+            if (targetModel != null)
+            {
+                CardFactory.Instance.CreateBaseCard(targetModel, singleTargetParent)
+                    .ToggleHighlight(true, targetModel.IsOwnerLocalPlayer ? LOCAL_PLAYER_COLOR : OPPONENT_PLAYER_COLOR);
+            }
+            else
+            {
+                if (unknownTargetPrefab != null)
+                    Instantiate(unknownTargetPrefab, singleTargetParent, false);
+            }
 
         }
     }
