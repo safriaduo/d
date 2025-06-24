@@ -24,7 +24,7 @@ public class FriendsUI : MonoBehaviour
     public async void LoadFriendsAsync()
     {
         ClearEntries();
-        var friendResponse = await GameController.Instance.GetFriends();
+        var friendResponse = await FriendsAPI.GetFriends();
 
         foreach (var friend in friendResponse.Friends)
         {
