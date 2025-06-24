@@ -17,13 +17,23 @@ public static class FriendsAPI
 
     /// <summary>
     /// Send a friend request to the given username.
+    /// Returns true if the request succeeded, false if the user was not found.
+    /// Other exceptions will be propagated to the caller.
     /// </summary>
-    public static async Task AddFriend(string username)
+    public static async Task<bool> AddFriend(string username)
     {
-        await GameController.Instance.Client.AddFriendsAsync(
-            GameController.Instance.Session,
-            new List<string>(),
-            new List<string> { username });
+        try
+        {
+            await GameController.Instance.Client.AddFriendsAsync(
+                GameController.Instance.Session,
+                new List<string>(),
+                new List<string> { username });
+            return true;
+        }
+        catch (ApiResponseException e) when (e.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            return false;
+        }
     }
 
     /// <summary>

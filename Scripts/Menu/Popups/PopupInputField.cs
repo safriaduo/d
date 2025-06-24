@@ -14,6 +14,14 @@ public class PopupInputField : Popup
     public Button button;
     public TextMeshProUGUI buttonText;
 
+    /// <summary>
+    /// Display a message in the popup using the built-in error text.
+    /// </summary>
+    public void ShowMessage(string message)
+    {
+        ShowError(message);
+    }
+
     public void SetTextAnimation(string anim)
     {
         text.GetComponent<TextAnimator_TMP>().SetText($"<{anim}>{text.text}");

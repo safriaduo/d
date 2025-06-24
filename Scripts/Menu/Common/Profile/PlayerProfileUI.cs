@@ -168,7 +168,7 @@ public class PlayerProfileUI : MonoBehaviour
         OpenPopup<PopupInputField>(popup =>
         {
             popup.buttonText.text = "Invite";
-            popup.button.onClick.AddListener(() => FriendsAPI.AddFriend(popup.inputField.text));
+            popup.button.onClick.AddListener(async () => await FriendsAPI.AddFriend(popup.inputField.text));
             popup.text.text = "Type the username of a player";
         });
     }
