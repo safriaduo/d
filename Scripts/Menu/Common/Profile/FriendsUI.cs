@@ -9,6 +9,8 @@ public class FriendsUI : MonoBehaviour
     public Transform onlineParent;
     public Transform offlineParent;
     public Transform pendingParent;
+    public Transform sentParent;
+    public Transform blockedParent;
     public Color onlineColor;
     public Color offlineColor;
 
@@ -31,13 +33,23 @@ public class FriendsUI : MonoBehaviour
         foreach (var friend in friendResponse.Friends)
         {
             Transform parent;
-            if (friend.State == 2)
+            switch (friend.State)
             {
-                parent = pendingParent;
-            }
-            else
-            {
-                parent = friend.User.Online ? onlineParent : offlineParent;
+                case 0:
+                    parent = friend.User.Online ? onlineParent : offlineParent;
+                    break;
+                case 1:
+                    parent = sentParent;
+                    break;
+                case 2:
+                    parent = pendingParent;
+                    break;
+                case 3:
+                    parent = blockedParent;
+                    break;
+                default:
+                    parent = offlineParent;
+                    break;
             }
             var entry = Instantiate(userEntryPrefab, parent);
             entry.Initialize(friend.User, friend.User.Online ? onlineColor : offlineColor, friend.State);

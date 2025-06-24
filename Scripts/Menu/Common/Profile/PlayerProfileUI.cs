@@ -123,7 +123,7 @@ public class PlayerProfileUI : MonoBehaviour
 
         OpenMenu("Your Friends");
 
-        //friendsUI.LoadFriendsAsync();
+        friendsUI.LoadFriendsAsync();
     }
     
     public void OpenProfile()
@@ -147,7 +147,7 @@ public class PlayerProfileUI : MonoBehaviour
         OpenMenu("Profile");
         profileParent.SetActive(true);
         
-        //friendsUI.LoadFriendsAsync();
+        friendsUI.LoadFriendsAsync();
     }
 
 

@@ -15,6 +15,7 @@ public class FriendEntry : UserEntry
     public Button inviteButton;
     public Button acceptButton;
     public Button rejectButton;
+    public Button removeButton;
 
     private IApiUser user;
 
@@ -33,6 +34,12 @@ public class FriendEntry : UserEntry
             inviteButton.onClick.RemoveAllListeners();
             inviteButton.onClick.AddListener(SendMatchInvitationAsync);
             inviteButton.gameObject.SetActive(user.Online);
+        }
+        if (removeButton != null)
+        {
+            removeButton.onClick.RemoveAllListeners();
+            removeButton.onClick.AddListener(RemoveFriendAsync);
+            removeButton.gameObject.SetActive(state == 0);
         }
 
         switch (state)
@@ -132,5 +139,14 @@ public class FriendEntry : UserEntry
         {
             statusText.text = available ? "Online" : "Offline";
         }
+    }
+
+    /// <summary>
+    /// Remove this friend from the list
+    /// </summary>
+    private async void RemoveFriendAsync()
+    {
+        await FriendsAPI.RemoveFriend(user.Username);
+        Destroy(gameObject);
     }
 }
