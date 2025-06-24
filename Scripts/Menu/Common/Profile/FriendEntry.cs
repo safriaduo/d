@@ -13,6 +13,8 @@ public class FriendEntry : UserEntry
     public GameObject invitationSentParent;
     public TMP_Text statusText;
     public Button inviteButton;
+    public Button acceptButton;
+    public Button rejectButton;
 
     private IApiUser user;
 
@@ -49,6 +51,16 @@ public class FriendEntry : UserEntry
             case 2:
                 transform.SetAsFirstSibling();
                 pendingParent.SetActive(true);
+                if (acceptButton != null)
+                {
+                    acceptButton.onClick.RemoveAllListeners();
+                    acceptButton.onClick.AddListener(() => RespondPendingInvitation(true));
+                }
+                if (rejectButton != null)
+                {
+                    rejectButton.onClick.RemoveAllListeners();
+                    rejectButton.onClick.AddListener(() => RespondPendingInvitation(false));
+                }
                 break;
 
             //Blocked user
@@ -64,20 +76,19 @@ public class FriendEntry : UserEntry
     /// <summary>
     /// Respond to a pending invitation
     /// </summary>
-    public void RespondPendingInvitation(bool accept)
+    public async void RespondPendingInvitation(bool accept)
     {
-        //add asset referencer and uncomment
-        //if (accept)
-        //{
-        //    AssetReferencer.Instance.connection.AddFriend(user.Username);
-        //    pendingParent.SetActive(false);
-        //    mutualFriendsParent.SetActive(true);
-        //}
-        //else
-        //{
-        //    AssetReferencer.Instance.connection.DeleteFriend(user.Username);
-        //    Destroy(gameObject);
-        //}
+        if (accept)
+        {
+            await FriendsAPI.AcceptFriend(user.Username);
+            pendingParent.SetActive(false);
+            mutualFriendsParent.SetActive(true);
+        }
+        else
+        {
+            await FriendsAPI.RemoveFriend(user.Username);
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>

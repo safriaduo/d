@@ -37,6 +37,17 @@ public static class FriendsAPI
     }
 
     /// <summary>
+    /// Accept a pending friend request from the given username.
+    /// </summary>
+    public static async Task AcceptFriend(string username)
+    {
+        await GameController.Instance.Client.AddFriendsAsync(
+            GameController.Instance.Session,
+            new List<string>(),
+            new List<string> { username });
+    }
+
+    /// <summary>
     /// Remove the given username from the friend list.
     /// </summary>
     public static async Task RemoveFriend(string username)
