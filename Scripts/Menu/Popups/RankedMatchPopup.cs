@@ -30,8 +30,6 @@ namespace Dawnshard.Menu
         [SerializeField] private GameObject rankExpBar=null;
         [SerializeField] private TMP_Text rankNumber=null;
         [SerializeField] private TMP_FontAsset bebasAsset;
-        [SerializeField] private Button addFriendButton;
-        [SerializeField] private PopupInputField addFriendPopup;
 
 
         protected DeckPresenter deckPresenter;
@@ -49,8 +47,6 @@ namespace Dawnshard.Menu
             timer = 0f;
             base.Start();
             findMatchButton.onClick.AddListener(ManageSearch);
-            if (addFriendButton != null)
-                addFriendButton.onClick.AddListener(OpenAddFriendPopup);
         }
 
         private void ManageSearch()
@@ -286,39 +282,6 @@ namespace Dawnshard.Menu
             OnCompleted?.Invoke();
         }
 
-        private void OpenAddFriendPopup()
-        {
-            if (addFriendPopup == null)
-                return;
-            addFriendPopup.Open();
-            addFriendPopup.button.onClick.RemoveAllListeners();
-            addFriendPopup.button.onClick.AddListener(() => SendFriendRequest(addFriendPopup.inputField.text));
-            addFriendPopup.buttonText.text = "Add";
-            addFriendPopup.text.text = "Type the username of a player";
-        }
-
-        private async void SendFriendRequest(string username)
-        {
-            if (string.IsNullOrEmpty(username))
-                return;
-            try
-            {
-                var added = await FriendsAPI.AddFriend(username);
-                if (added)
-                {
-                    addFriendPopup.ShowMessage("Friend request sent!");
-                }
-                else
-                {
-                    addFriendPopup.ShowMessage("User not found");
-                }
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogException(e);
-                addFriendPopup.ShowMessage(e.Message);
-            }
-        }
 
         private void UndoWaitingAnimation()
         {

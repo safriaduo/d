@@ -115,11 +115,11 @@ public class PlayerProfileUI : MonoBehaviour
         leaderboardUI.ClearEntries();
         dailyQuestUI.ClearEntries();
 
-        // optionButtonView.SetOptions(new Dictionary<string, Action>()
-        // {
-        //     { "Add Friend", OpenAddFriendPopup },
-        //     { "Referral",  OpenReferralPopup },
-        // }, false);
+        optionButtonView.SetOptions(new Dictionary<string, Action>()
+        {
+            { "Add Friend", OpenAddFriendPopup },
+            { "Referral",  OpenReferralPopup },
+        }, "");
 
         OpenMenu("Your Friends");
 
@@ -168,9 +168,38 @@ public class PlayerProfileUI : MonoBehaviour
         OpenPopup<PopupInputField>(popup =>
         {
             popup.buttonText.text = "Invite";
-            popup.button.onClick.AddListener(async () => await FriendsAPI.AddFriend(popup.inputField.text));
+            popup.button.onClick.RemoveAllListeners();
+            popup.button.onClick.AddListener(() => SendFriendRequest(popup));
             popup.text.text = "Type the username of a player";
         });
+    }
+
+    private async void SendFriendRequest(PopupInputField popup)
+    {
+        var username = popup.inputField.text;
+        if (string.IsNullOrEmpty(username))
+        {
+            popup.ShowMessage("Enter a username");
+            return;
+        }
+
+        try
+        {
+            var added = await FriendsAPI.AddFriend(username);
+            if (added)
+            {
+                popup.ShowMessage("Friend request sent!");
+            }
+            else
+            {
+                popup.ShowMessage("User not found");
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogException(e);
+            popup.ShowMessage(e.Message);
+        }
     }
     
     private void OpenPopup<T>(Action<T> onOpened = null) where T : Popup    {
