@@ -2,6 +2,8 @@
 using Nakama;
 using System.Threading.Tasks;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class FriendEntry : UserEntry
 {
@@ -9,6 +11,8 @@ public class FriendEntry : UserEntry
     public GameObject pendingParent;
     public GameObject blockedParent;
     public GameObject invitationSentParent;
+    public TMP_Text statusText;
+    public Button inviteButton;
 
     private IApiUser user;
 
@@ -17,6 +21,17 @@ public class FriendEntry : UserEntry
         this.user = user;
 
         base.Initialize(user.Username, color);
+
+        if (statusText != null)
+        {
+            statusText.text = user.Online ? "Online" : "Offline";
+        }
+        if (inviteButton != null)
+        {
+            inviteButton.onClick.RemoveAllListeners();
+            inviteButton.onClick.AddListener(SendMatchInvitationAsync);
+            inviteButton.gameObject.SetActive(user.Online);
+        }
 
         switch (state)
         {
@@ -91,5 +106,20 @@ public class FriendEntry : UserEntry
         //conn.SendFriendlyMatchInvitation(user.Id, match.matchId);
 
         //FriendlyMatchState.StartFriendlyMatch(user.Username, match.matchId);
+    }
+
+    /// <summary>
+    /// Enable or disable the friendly match button based on availability
+    /// </summary>
+    public void SetMatchInviteAvailable(bool available)
+    {
+        if (inviteButton != null)
+        {
+            inviteButton.gameObject.SetActive(available);
+        }
+        if (statusText != null)
+        {
+            statusText.text = available ? "Online" : "Offline";
+        }
     }
 }

@@ -6,11 +6,12 @@ using UnityEngine;
 public class FriendsUI : MonoBehaviour
 {
     public FriendEntry userEntryPrefab;
-    public Transform entryParent;
+    public Transform onlineParent;
+    public Transform offlineParent;
     public Color onlineColor;
     public Color offlineColor;
 
-    private List<UserEntry> spawnedEntries = new List<UserEntry>();
+    private List<FriendEntry> spawnedEntries = new List<FriendEntry>();
 
     public void ClearEntries()
     {
@@ -28,8 +29,10 @@ public class FriendsUI : MonoBehaviour
 
         foreach (var friend in friendResponse.Friends)
         {
-            var entry = Instantiate(userEntryPrefab, entryParent);
+            var parent = friend.User.Online ? onlineParent : offlineParent;
+            var entry = Instantiate(userEntryPrefab, parent);
             entry.Initialize(friend.User, friend.User.Online ? onlineColor : offlineColor, friend.State);
+            entry.SetMatchInviteAvailable(friend.User.Online);
             spawnedEntries.Add(entry);
         }
     }
