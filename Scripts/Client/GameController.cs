@@ -694,21 +694,6 @@ public class GameController : MonoBehaviour
         return await Client.ListLeaderboardRecordsAroundOwnerAsync(Session, leaderboardId, Session.UserId, null, recordNumber, null);
     }
 
-    /// <summary>
-    /// Get all friends even pending and blocked
-    /// </summary>
-    public async Task<IApiFriendList> GetFriends()
-    {
-        return await Client.ListFriendsAsync(Session, null, 100);
-    }
-
-    /// <summary>
-    /// Adds a friend from the list
-    /// </summary>
-    public async void AddFriend(string username)
-    {
-        await Client.AddFriendsAsync(Session, new List<string>(), new List<string> { username });
-    }
 
     private class SaveDeckRequest
     {
