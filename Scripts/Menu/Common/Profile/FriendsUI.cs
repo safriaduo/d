@@ -9,8 +9,6 @@ public class FriendsUI : MonoBehaviour
     public Transform onlineParent;
     public Transform offlineParent;
     public Transform pendingParent;
-    public Transform sentParent;
-    public Transform blockedParent;
     public Color onlineColor;
     public Color offlineColor;
 
@@ -23,6 +21,7 @@ public class FriendsUI : MonoBehaviour
             Destroy(entry.gameObject);
         }
         spawnedEntries.Clear();
+        ToggleFriendsParent(false);
     }
 
     public async void LoadFriendsAsync()
@@ -32,30 +31,24 @@ public class FriendsUI : MonoBehaviour
 
         foreach (var friend in friendResponse.Friends)
         {
-            Transform parent;
-            switch (friend.State)
+            Transform parent = friend.State switch
             {
-                case 0:
-                    parent = friend.User.Online ? onlineParent : offlineParent;
-                    break;
-                case 1:
-                    parent = sentParent;
-                    break;
-                case 2:
-                    parent = pendingParent;
-                    break;
-                case 3:
-                    parent = blockedParent;
-                    break;
-                default:
-                    parent = offlineParent;
-                    break;
-            }
+                0 => friend.User.Online ? onlineParent : offlineParent,
+                1 => pendingParent,
+                2 => pendingParent,
+                _ => offlineParent,
+            };
             var entry = Instantiate(userEntryPrefab, parent);
             entry.Initialize(friend.User, friend.User.Online ? onlineColor : offlineColor, friend.State);
-            entry.SetMatchInviteAvailable(friend.User.Online && friend.State == 0);
             spawnedEntries.Add(entry);
         }
+        ToggleFriendsParent(true);
     }
 
+    public void ToggleFriendsParent(bool toggle)
+    {
+        onlineParent.gameObject.SetActive(toggle && onlineParent.childCount > 1);
+        offlineParent.gameObject.SetActive(toggle && offlineParent.childCount > 1);
+        pendingParent.gameObject.SetActive(toggle && pendingParent.childCount > 1);
+    }
 }

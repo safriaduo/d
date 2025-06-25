@@ -11,11 +11,6 @@ public class FriendEntry : UserEntry
     public GameObject pendingParent;
     public GameObject blockedParent;
     public GameObject invitationSentParent;
-    public TMP_Text statusText;
-    public Button inviteButton;
-    public Button acceptButton;
-    public Button rejectButton;
-    public Button removeButton;
 
     private IApiUser user;
 
@@ -24,23 +19,7 @@ public class FriendEntry : UserEntry
         this.user = user;
 
         base.Initialize(user.Username, color);
-
-        if (statusText != null)
-        {
-            statusText.text = user.Online ? "Online" : "Offline";
-        }
-        if (inviteButton != null)
-        {
-            inviteButton.onClick.RemoveAllListeners();
-            inviteButton.onClick.AddListener(SendMatchInvitationAsync);
-            inviteButton.gameObject.SetActive(user.Online);
-        }
-        if (removeButton != null)
-        {
-            removeButton.onClick.RemoveAllListeners();
-            removeButton.onClick.AddListener(RemoveFriendAsync);
-            removeButton.gameObject.SetActive(state == 0);
-        }
+          
 
         switch (state)
         {
@@ -56,18 +35,7 @@ public class FriendEntry : UserEntry
 
             //Received invitation and pending acceptance
             case 2:
-                transform.SetAsFirstSibling();
                 pendingParent.SetActive(true);
-                if (acceptButton != null)
-                {
-                    acceptButton.onClick.RemoveAllListeners();
-                    acceptButton.onClick.AddListener(() => RespondPendingInvitation(true));
-                }
-                if (rejectButton != null)
-                {
-                    rejectButton.onClick.RemoveAllListeners();
-                    rejectButton.onClick.AddListener(() => RespondPendingInvitation(false));
-                }
                 break;
 
             //Blocked user
@@ -127,24 +95,9 @@ public class FriendEntry : UserEntry
     }
 
     /// <summary>
-    /// Enable or disable the friendly match button based on availability
-    /// </summary>
-    public void SetMatchInviteAvailable(bool available)
-    {
-        if (inviteButton != null)
-        {
-            inviteButton.gameObject.SetActive(available);
-        }
-        if (statusText != null)
-        {
-            statusText.text = available ? "Online" : "Offline";
-        }
-    }
-
-    /// <summary>
     /// Remove this friend from the list
     /// </summary>
-    private async void RemoveFriendAsync()
+    public async void RemoveFriendAsync()
     {
         await FriendsAPI.RemoveFriend(user.Username);
         Destroy(gameObject);

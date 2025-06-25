@@ -32,9 +32,11 @@ namespace Dawnshard.Presenters
                 this.eventBusManager = eventBusManager;
                 eventBusManager.CardEventBus.Subscribe(Model.InstanceId, OnGameEventReceived);
                 eventBusManager.PlayerEventBus.Subscribe(Model.OwnerId, OnOwnerEventReceived);
-                view.SetOnDestroy(()=>{
+                view.SetOnDestroy(() =>
+                {
                     eventBusManager.CardEventBus.Unsubscribe(Model.InstanceId, OnGameEventReceived);
-                    eventBusManager.PlayerEventBus.Unsubscribe(Model.OwnerId, OnOwnerEventReceived); });
+                    eventBusManager.PlayerEventBus.Unsubscribe(Model.OwnerId, OnOwnerEventReceived);
+                });
             }
 
             if (Model.ZoneId == Constants.BoardZone)
@@ -47,7 +49,7 @@ namespace Dawnshard.Presenters
         {
             eventBusManager.CardEventBus.Unsubscribe(Model.InstanceId, OnGameEventReceived);
             eventBusManager.PlayerEventBus.Unsubscribe(Model.OwnerId, OnOwnerEventReceived);
-            
+
             base.Destroy();
         }
 
@@ -78,10 +80,10 @@ namespace Dawnshard.Presenters
                         break;
                     }
                 case HighlightCardEvent highlightCard:
-                {
-                    SetDefaultHighlight();
-                    break;
-                }
+                    {
+                        SetDefaultHighlight();
+                        break;
+                    }
 
                 default:
                     break;
@@ -144,7 +146,7 @@ namespace Dawnshard.Presenters
                 case ReapCreatureTriggered reapCreatureEvent:
                     {
                         OnReap();
-                        if(ZoneTransform!=null)
+                        if (ZoneTransform != null)
                             eventBusManager.PlayerEventBus.Publish(Model.OwnerId,
                                 new ChangeShardEvent(ZoneTransform.position, false, true));
                         else
@@ -161,10 +163,10 @@ namespace Dawnshard.Presenters
                         break;
                     }
                 case CardToAttackEvent meetCardToAttack:
-                {
-                    FightCreature(meetCardToAttack.DefenderCardPos-(meetCardToAttack.DefenderCardPos-GetTargetWorldPosition()).normalized*3f+Vector3.up);
-                    break;   
-                }
+                    {
+                        FightCreature(meetCardToAttack.DefenderCardPos - (meetCardToAttack.DefenderCardPos - GetTargetWorldPosition()).normalized * 3f + Vector3.up);
+                        break;
+                    }
                 case CardTargettableEvent targettableEvent:
                     {
                         if (targettableEvent.StartedTarget)
@@ -183,9 +185,9 @@ namespace Dawnshard.Presenters
                         break;
                     }
                 case CardTargetsUpdateEvent targetsUpdate:
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
 
                 default:
                     {
@@ -260,11 +262,11 @@ namespace Dawnshard.Presenters
             Model.ZoneId = destZoneId;
             //Model.CanBePlayed = Model.CanBePlayed && destZoneId == Constants.HandZone;
             Action OnEndMovement = null;
-            
-            if (Model.Stats.Find(statModel => statModel.ID == Constants.ShardStat).Value > 0 && 
+
+            if (Model.Stats.Find(statModel => statModel.ID == Constants.ShardStat).Value > 0 &&
                 origZone == Constants.HandZone && (destZoneId is Constants.BoardZone or Constants.ActionZone))
             {
-                OnEndMovement = ()=>eventBusManager.PlayerEventBus.Publish(Model.OwnerId, new ChangeShardEvent(ZoneTransform==null?CardView.GetPosition():ZoneTransform.position, false,true));
+                OnEndMovement = () => eventBusManager.PlayerEventBus.Publish(Model.OwnerId, new ChangeShardEvent(ZoneTransform == null ? CardView.GetPosition() : ZoneTransform.position, false, true));
             }
             CardView.OnZoneChanged(origZone, destZoneId, OnEndMovement);
             if (destZoneId is not Constants.BoardZone)
@@ -314,7 +316,7 @@ namespace Dawnshard.Presenters
             }
 
             Debug.Log("Player ability card " + Model.InstanceId + " Trigger " + triggerID + " Effect " + effectID);
-   
+
             // switch (effectID)
             // {
             //     case Constants.StealShardEffect:
@@ -333,11 +335,11 @@ namespace Dawnshard.Presenters
         public virtual void OnCardAbilityTriggered(string triggerID, string effectID)
         {
             Debug.Log("Card ability card " + Model.InstanceId + " Trigger " + triggerID + " Effect " + effectID);
-            
+
             if (effectID == Constants.LockShardEffect)
             {
-                eventBusManager.PlayerEventBus.Publish(Model.OwnerId,
-                    new ChangeShardEvent(ZoneTransform.position, false, true, true));
+                var shardPosition = ZoneTransform == null ? CardView.GetPosition() : ZoneTransform.position;
+                eventBusManager.PlayerEventBus.Publish(Model.OwnerId, new ChangeShardEvent(shardPosition, false, true, true));
             }
             if (Model.Type == Constants.ActionType)
                 return;
@@ -345,7 +347,7 @@ namespace Dawnshard.Presenters
             CardView.TriggerAbility(triggerID, effectID);
         }
 
-        public Vector3 GetTargetWorldPosition(string effectID="")
+        public Vector3 GetTargetWorldPosition(string effectID = "")
         {
             return CardView.GetPosition();
         }
@@ -457,7 +459,7 @@ namespace Dawnshard.Presenters
         public void SetDefaultHighlight()
         {
             //if (!Model.IsOwnerTurn || Model.ZoneId == Constants.ArtifactZone || Model.ZoneId == Constants.ActionZone)
-            if(!Model.CanBePlayed && !Model.IsReady || !Model.IsOwnerTurn)
+            if (!Model.CanBePlayed && !Model.IsReady || !Model.IsOwnerTurn)
             {
                 ToggleHighlight(false);
             }
@@ -476,6 +478,19 @@ namespace Dawnshard.Presenters
         {
             CardView.SetSortingGroupOrderInLayer(i);
         }
+
+        public float GetMoveDuration(string origZone, string destZoneId)
+        {
+            return CardView.GetMoveDuration(origZone, destZoneId);
+        }
+
+        public float ReapDuration => CardView.ReapDuration;
+
+        public float FightDuration => CardView.FightDuration;
+
+        public float ReadyChangeDuration => CardView.ReadyChangeDuration;
+
+        public float AbilityDuration => CardView.AbilityDuration;
         #endregion
     }
 }

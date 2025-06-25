@@ -35,7 +35,7 @@ namespace Dawnshard.Menu
 
         private void OnBuyPremiumButtonPressed()
         {
-#if UNITY_EDITOR || UNITY_ANDROID
+#if   UNITY_ANDROID
             PurchaseInAppBattlePass(Constants.BattlePassAndroid);
 #elif UNITY_IOS
             PurchaseInAppBattlePass(Constants.BattlePassiOS);

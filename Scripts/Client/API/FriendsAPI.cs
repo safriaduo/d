@@ -20,31 +20,13 @@ public static class FriendsAPI
     /// Returns true if the request succeeded, false if the user was not found.
     /// Other exceptions will be propagated to the caller.
     /// </summary>
-    public static async Task<bool> AddFriend(string username)
-    {
-        try
-        {
-            await GameController.Instance.Client.AddFriendsAsync(
-                GameController.Instance.Session,
-                new List<string>(),
-                new List<string> { username });
-            return true;
-        }
-        catch (ApiResponseException e) when (e.StatusCode == System.Net.HttpStatusCode.NotFound)
-        {
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// Accept a pending friend request from the given username.
-    /// </summary>
-    public static async Task AcceptFriend(string username)
+    public static async Task AddFriend(string username)
     {
         await GameController.Instance.Client.AddFriendsAsync(
             GameController.Instance.Session,
             new List<string>(),
             new List<string> { username });
+
     }
 
     /// <summary>
@@ -53,6 +35,17 @@ public static class FriendsAPI
     public static async Task RemoveFriend(string username)
     {
         await GameController.Instance.Client.DeleteFriendsAsync(
+            GameController.Instance.Session,
+            new List<string>(),
+            new List<string> { username });
+    }
+
+    /// <summary>
+    /// Accept a pending friend request from the given username.
+    /// </summary>
+    public static async Task AcceptFriend(string username)
+    {
+        await GameController.Instance.Client.AddFriendsAsync(
             GameController.Instance.Session,
             new List<string>(),
             new List<string> { username });

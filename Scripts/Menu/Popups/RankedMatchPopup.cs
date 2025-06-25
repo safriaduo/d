@@ -282,7 +282,6 @@ namespace Dawnshard.Menu
             OnCompleted?.Invoke();
         }
 
-
         private void UndoWaitingAnimation()
         {
             if (!isSearchingForMatch)

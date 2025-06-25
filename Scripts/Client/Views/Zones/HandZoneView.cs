@@ -31,7 +31,7 @@ namespace Dawnshard.Views
         private RectTransform mobileHighlight;
 
 
-#if UNITY_EDITOR || UNITY_ANDROID || UNITY_IOS
+#if  UNITY_ANDROID || UNITY_IOS
 
         private void Start()
         {
@@ -49,7 +49,7 @@ namespace Dawnshard.Views
 
         protected override void HighlightEnded()
         {
-#if !(UNITY_EDITOR || UNITY_ANDROID || UNITY_IOS)
+#if !(  UNITY_ANDROID || UNITY_IOS)
             if (lockCardsInteraction)
                 return;
             foreach (var cardPresenter in cardPresenters)
@@ -81,9 +81,12 @@ namespace Dawnshard.Views
             //ReorderCards();
         }
 
+        private bool skipNextHighlight = false;
+
         protected override void AddCard(ICardPresenter cardPresenter)
         {
             base.AddCard(cardPresenter);
+            skipNextHighlight = true;
             ReorderCards();
         }
 
@@ -144,7 +147,7 @@ namespace Dawnshard.Views
 
             if (cardPresenter.Model.CanBePlayed)
                 discardArea.MiniShrink();
-#if UNITY_EDITOR || UNITY_ANDROID || UNITY_IOS
+#if   UNITY_ANDROID || UNITY_IOS
             HighlightStarted(cardPresenter);
 #endif
 

@@ -36,20 +36,20 @@ namespace Dawnshard.Presenters
             switch (gameEvent)
             {
                 case ZoneCardAddedEvent zoneCardAdded:
-                {
-                    AddCard(zoneCardAdded.CardId, zoneCardAdded.Card);
-                    break;
-                }
+                    {
+                        AddCard(zoneCardAdded.CardId, zoneCardAdded.Card);
+                        break;
+                    }
                 case ZoneCardRemovedEvent zoneCardRemoved:
-                {
-                    RemoveCard(zoneCardRemoved.CardId);
-                    break;
-                }
+                    {
+                        RemoveCard(zoneCardRemoved.CardId);
+                        break;
+                    }
                 case UpdateBoardEvent updateBoard:
-                {
-                    UpdateView();
-                    break;
-                }
+                    {
+                        UpdateView();
+                        break;
+                    }
             }
         }
 
@@ -92,7 +92,7 @@ namespace Dawnshard.Presenters
             if (Model.IsStaticZone)
             {
                 zoneView.SetNumCards(Model.NumCards);
-                if(cardPresenters.ContainsKey(cardId))
+                if (cardPresenters.ContainsKey(cardId))
                 {
                     cardPresenters.Remove(cardId);
                     cardPresenter.Destroy();
@@ -144,6 +144,11 @@ namespace Dawnshard.Presenters
             cardPresenters.Clear();
         }
 
+        public static ICardPresenter GetCardPresenter(int cardId)
+        {
+            return cardPresenters.GetValueOrDefault(cardId, null);
+        }
+
         public void RemoveCard(int cardId)
         {
             Model.NumCards--;
@@ -154,7 +159,7 @@ namespace Dawnshard.Presenters
                 UpdateView();
                 return;
             }
-            
+
             var cardPresenter = cardPresenters.GetValueOrDefault(cardId);
 
             if (cardPresenter == null)

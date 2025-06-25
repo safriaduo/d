@@ -44,5 +44,30 @@ namespace Dawnshard.Network
         /// Resize the frame of the card to big or small
         /// </summary>
         void ChangeCardFrame(bool growFrame);
+
+        /// <summary>
+        /// Duration of the move animation between two zones
+        /// </summary>
+        float GetMoveDuration(string origZone, string destZoneId);
+
+        /// <summary>
+        /// Duration of the reap animation
+        /// </summary>
+        float ReapDuration { get; }
+
+        /// <summary>
+        /// Duration of the fight animation
+        /// </summary>
+        float FightDuration { get; }
+
+        /// <summary>
+        /// Duration of the ready change animation
+        /// </summary>
+        float ReadyChangeDuration { get; }
+
+        /// <summary>
+        /// Duration of the ability trigger animation
+        /// </summary>
+        float AbilityDuration { get; }
     }
 }

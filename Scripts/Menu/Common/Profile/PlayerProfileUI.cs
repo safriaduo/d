@@ -30,7 +30,7 @@ public class PlayerProfileUI : MonoBehaviour
 
     private void OpenMenu(string title)
     {
-        if(isOpen)
+        if (isOpen)
             return;
         playerNameText.text = GameController.Username;
         titleText.text = title;
@@ -40,7 +40,7 @@ public class PlayerProfileUI : MonoBehaviour
 
     public void CloseMenu()
     {
-        if(!isOpen)
+        if (!isOpen)
             return;
         isOpen = false;
         profileParent.SetActive(false);
@@ -66,7 +66,7 @@ public class PlayerProfileUI : MonoBehaviour
         OpenMenu("Ascendant leaderboard");
         leaderboardUI.LoadTopLeaderboardAsync();
     }
-    
+
     public void OpenDailyQuest()
     {
         if (isOpen)
@@ -76,14 +76,14 @@ public class PlayerProfileUI : MonoBehaviour
         }
         friendsUI.ClearEntries();
         leaderboardUI.ClearEntries();
-        
+
         dailyQuestUI.Initialize();
         optionButtonView.SetOptions(new Dictionary<string, Action>()
-        {},"");
+        { }, "");
         OpenMenu("Daily Quests");
 
     }
-    
+
     public void OpenTournamentLeaderboard()
     {
         if (isOpen)
@@ -118,14 +118,13 @@ public class PlayerProfileUI : MonoBehaviour
         optionButtonView.SetOptions(new Dictionary<string, Action>()
         {
             { "Add Friend", OpenAddFriendPopup },
-            { "Referral",  OpenReferralPopup },
         }, "");
 
         OpenMenu("Your Friends");
 
         friendsUI.LoadFriendsAsync();
     }
-    
+
     public void OpenProfile()
     {
         if (isOpen)
@@ -137,41 +136,19 @@ public class PlayerProfileUI : MonoBehaviour
         leaderboardUI.ClearEntries();
         dailyQuestUI.ClearEntries();
 
-        optionButtonView.SetOptions(new Dictionary<string, Action>(),"");
-        // optionButtonView.SetOptions(new Dictionary<string, Action>()
-        // {
-        //     { "Add Friend", OpenAddFriendPopup },
-        //     { "Referral",  OpenReferralPopup },
-        // }, false);
+        optionButtonView.SetOptions(new Dictionary<string, Action>(), "");
 
         OpenMenu("Profile");
         profileParent.SetActive(true);
-        
-        friendsUI.LoadFriendsAsync();
-    }
-
-
-    private void OpenReferralPopup()
-    {
-        OpenPopup<PopupInputField>(popup =>
-        {
-            string referralId = GameController.Instance.Session.UserId;
-            popup.buttonText.text = "Copy";
-            popup.button.onClick.AddListener(() => GUIUtility.systemCopyBuffer = referralId );
-            popup.text.text = "Send this to your friend!";
-            popup.inputField.text = referralId;
-        });
     }
 
     private void OpenAddFriendPopup()
     {
-        OpenPopup<PopupInputField>(popup =>
-        {
-            popup.buttonText.text = "Invite";
-            popup.button.onClick.RemoveAllListeners();
-            popup.button.onClick.AddListener(() => SendFriendRequest(popup));
-            popup.text.text = "Type the username of a player";
-        });
+        popupInputField.Open();
+        popupInputField.buttonText.text = "Invite";
+        popupInputField.button.onClick.RemoveAllListeners();
+        popupInputField.button.onClick.AddListener(() => SendFriendRequest(popupInputField));
+        popupInputField.text.text = "Type the username of a player";
     }
 
     private async void SendFriendRequest(PopupInputField popup)
@@ -185,44 +162,13 @@ public class PlayerProfileUI : MonoBehaviour
 
         try
         {
-            var added = await FriendsAPI.AddFriend(username);
-            if (added)
-            {
-                popup.ShowMessage("Friend request sent!");
-            }
-            else
-            {
-                popup.ShowMessage("User not found");
-            }
+            await FriendsAPI.AddFriend(username);
+            popup.ShowMessage("Friend request sent!");
         }
-        catch (System.Exception e)
+        catch (Exception e)
         {
             Debug.LogException(e);
             popup.ShowMessage(e.Message);
         }
-    }
-    
-    private void OpenPopup<T>(Action<T> onOpened = null) where T : Popup    {
-        popupInputField.gameObject.SetActive(true);
-        popupInputField.transform.SetParent(popupInputField.transform, false);
-        if (onOpened != null)
-        {
-            onOpened(popupInputField.GetComponent<T>());
-        }
-    }
-    
-    public void ClosePopup()
-    {
-        if (popupInputField != null)
-        {
-            popupInputField.gameObject.SetActive(false);
-            popupInputField = null;
-        }
-    }
-
-    public void OnPopupClosed(Popup popup)
-    {
-        if (popup == popupInputField)
-            popupInputField = null;
     }
 }

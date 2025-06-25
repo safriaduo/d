@@ -85,7 +85,7 @@ namespace Dawnshard.Views
 
         private void Start()
         {
-            originalPositionToResetAfterMovement.AddRange(transformToResetAfterMovement.ToList().ConvertAll(transformToReset=>transformToReset.localPosition));
+            originalPositionToResetAfterMovement.AddRange(transformToResetAfterMovement.ToList().ConvertAll(transformToReset => transformToReset.localPosition));
             growFrameAnimation.Events.OnComplete.AddListener(ResetLocalPositions);
             shrinkFrameAnimation.Events.OnPlay.AddListener(ResetLocalPositions);
         }
@@ -241,7 +241,7 @@ namespace Dawnshard.Views
                         }
 
                         SetDynamicTransforms(feedbacks);
-                        feedbacks.FeedbacksIntensity = isArtifact && (destZone == Constants.BoardZone || destZone == Constants.HandZone && origZone == Constants.BoardZone)? 0 : 1;
+                        feedbacks.FeedbacksIntensity = isArtifact && (destZone == Constants.BoardZone || destZone == Constants.HandZone && origZone == Constants.BoardZone) ? 0 : 1;
                         feedbacks.PlayFeedbacks();
                         feedbacks.Events.OnComplete.AddListener(OnEnd);
                     }
@@ -302,9 +302,9 @@ namespace Dawnshard.Views
 
         private void ResetLocalPositions()
         {
-            for (int i = 0;i<transformToResetAfterMovement.Count;i++)
+            for (int i = 0; i < transformToResetAfterMovement.Count; i++)
             {
-                transformToResetAfterMovement[i].localPosition=originalPositionToResetAfterMovement[i];
+                transformToResetAfterMovement[i].localPosition = originalPositionToResetAfterMovement[i];
             }
         }
 
@@ -470,6 +470,34 @@ namespace Dawnshard.Views
         {
             OnUserInput?.Invoke(UserInput.MouseUp);
         }
+
+        public float GetMoveDuration(string origZone, string destZone)
+        {
+            float duration = 0f;
+            var origZoneAnimations = animationByMovementIds.GetAllItems(origZone);
+            foreach (var dict in origZoneAnimations)
+            {
+                var moveFeedbacks = dict.GetAllItems(destZone);
+                foreach (var feedbacks in moveFeedbacks)
+                {
+                    if (feedbacks != null)
+                    {
+                        duration = Mathf.Max(duration, feedbacks.TotalDuration);
+                    }
+                }
+            }
+
+            return duration;
+        }
+
+        public float ReapDuration => reapAnimation != null ? reapAnimation.TotalDuration : 0f;
+
+        public float FightDuration => fightAnimation != null ? fightAnimation.TotalDuration : 0f;
+
+        public float ReadyChangeDuration => Mathf.Max(growFrameAnimation != null ? growFrameAnimation.TotalDuration : 0f,
+            shrinkFrameAnimation != null ? shrinkFrameAnimation.TotalDuration : 0f);
+
+        public float AbilityDuration => triggerActivatedAnimation != null ? triggerActivatedAnimation.TotalDuration : 0f;
 
 
         [Serializable]
