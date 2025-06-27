@@ -36,7 +36,7 @@ public static class BattlePassAPI
     {
         var battlePassText = Resources.Load<TextAsset>(BATTLE_PASS_PATH);
 
-        var battlePassRecord = BattlePassDTO.Parser.ParseJson(battlePassText.text);
+        var battlePassRecord = Newtonsoft.Json.JsonConvert.DeserializeObject<BattlePassDTO>(battlePassText.text);
 
         return battlePassRecord;
     }

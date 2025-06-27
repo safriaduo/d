@@ -1,4 +1,3 @@
-using Google.Protobuf;
 using Nakama;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,27 +34,27 @@ namespace Dawnshard.Network
             {
                 case OpCode.Start:
                     {
-                        eventDispatcher.OnGameStart(GameStart.Parser.ParseJson(json));
+                        eventDispatcher.OnGameStart(Newtonsoft.Json.JsonConvert.DeserializeObject<GameStart>(json));
                         break;
                     }
                 case OpCode.Matchupdate:
                     {
-                        eventDispatcher.OnGameStateUpdate(GameStateUpdate.Parser.ParseJson(json));
+                        eventDispatcher.OnGameStateUpdate(Newtonsoft.Json.JsonConvert.DeserializeObject<GameStateUpdate>(json));
                         break;
                     }
                 case OpCode.End:
                     {
-                        eventDispatcher.OnGameEnd(GameEnd.Parser.ParseJson(json));
+                        eventDispatcher.OnGameEnd(Newtonsoft.Json.JsonConvert.DeserializeObject<GameEnd>(json));
                         break;
                     }
                 case OpCode.Opponentleft:
                     {
-                        eventDispatcher.OnOpponentLeft(GameEnd.Parser.ParseJson(json));
+                        eventDispatcher.OnOpponentLeft(Newtonsoft.Json.JsonConvert.DeserializeObject<GameEnd>(json));
                         break;
                     }
                 case OpCode.Gameupdate:
                     {
-                        eventDispatcher.OnGameUpdate(GameUpdate.Parser.ParseJson(json));
+                        eventDispatcher.OnGameUpdate(Newtonsoft.Json.JsonConvert.DeserializeObject<GameUpdate>(json));
                         break;
                     }
 
