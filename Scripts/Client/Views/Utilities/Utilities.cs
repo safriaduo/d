@@ -1,4 +1,3 @@
-using Google.Protobuf;
 using System.Text;
 using UnityEngine;
 
@@ -10,10 +9,9 @@ public static class Utilities
         return (layerMask.value & objLayerMask) > 0;
     }
 
-    public static byte[] Encode(this IMessage request)
+    public static byte[] Encode(this object request)
     {
-        string json = JsonFormatter.Default.Format(request);
-        byte[] bytes = Encoding.UTF8.GetBytes(json);
-        return bytes;
+        string json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+        return Encoding.UTF8.GetBytes(json);
     }
 }

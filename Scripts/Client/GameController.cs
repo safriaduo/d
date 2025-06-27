@@ -1,6 +1,5 @@
 ﻿using Dawnshard.Database;
 using Dawnshard.Network;
-using Google.Protobuf;
 using Nakama;
 using Nakama.TinyJson;
 using Newtonsoft.Json;
