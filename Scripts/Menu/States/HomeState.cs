@@ -16,8 +16,6 @@ namespace Dawnshard.Menu
         [SerializeField] private TMP_Text versionText;
         [SerializeField] private PlayerProfileUI playerProfileUI;
         [SerializeField] private PlayerStatsPopup playerStatsPopup;
-        [SerializeField] private Transform notificationParent;
-        [SerializeField] private TextPopup notificationPrefab;
         [SerializeField] private Transform dailyQuestParent;
         [SerializeField] private PopupOneButton dailyQuestCompletedPopup;
         [SerializeField] private GameObject tournamentLeaderboardButton;
@@ -49,7 +47,7 @@ namespace Dawnshard.Menu
             DestroyAllCards();
             LoadUserData();
         }
-        
+
         private void Start()
         {
             //LoadDecksAndSets();
@@ -105,11 +103,6 @@ namespace Dawnshard.Menu
                     SpawnQuestFromNotification(questData, notification.Code == 3);
                     spawnedQuests++;
                 }
-                else
-                {
-                    var newNotification = Instantiate(notificationPrefab, notificationParent);
-                    newNotification.SetBodyText(notification.Subject);
-                }
             }
 
             await GameController.Instance.DeleteNotification(
@@ -149,8 +142,7 @@ namespace Dawnshard.Menu
                 }
             }
         }
-
-
+        
         public override string GetName() => Constants.HomeState;
     }
 }

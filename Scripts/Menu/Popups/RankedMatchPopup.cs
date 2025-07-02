@@ -19,17 +19,17 @@ namespace Dawnshard.Menu
     public class RankedMatchPopup : Popup
     {
         [SerializeField] protected Button findMatchButton;
-        [SerializeField] private MMFeedbacks openAnimation;
-        [SerializeField] private MMFeedbacks waitingAnimation;
-        [SerializeField] private Transform closePosition;
-        [SerializeField] private GameObject deckParent;
-        [SerializeField] private TMP_Text timerText;
-        [SerializeField] private TMP_Text titleText;
-        [SerializeField] private Image rankImage=null;
-        [SerializeField] private Image rankExp=null;
-        [SerializeField] private GameObject rankExpBar=null;
-        [SerializeField] private TMP_Text rankNumber=null;
-        [SerializeField] private TMP_FontAsset bebasAsset;
+        [SerializeField] protected MMFeedbacks openAnimation;
+        [SerializeField] protected MMFeedbacks waitingAnimation;
+        [SerializeField] protected Transform closePosition;
+        [SerializeField] protected GameObject deckParent;
+        [SerializeField] protected TMP_Text timerText;
+        [SerializeField] protected TMP_Text titleText;
+        [SerializeField] protected Image rankImage = null;
+        [SerializeField] protected Image rankExp = null;
+        [SerializeField] protected GameObject rankExpBar = null;
+        [SerializeField] protected TMP_Text rankNumber = null;
+        [SerializeField] protected TMP_FontAsset bebasAsset;
 
 
         protected DeckPresenter deckPresenter;
@@ -101,7 +101,7 @@ namespace Dawnshard.Menu
 
             try
             {
-                await GameController.Instance.StartAIMatch(deckPresenter.Model.Name,false);
+                await GameController.Instance.StartAIMatch(deckPresenter.Model.Name, false);
                 isSearchingForMatch = true;
             }
             catch (Exception e)
@@ -123,7 +123,7 @@ namespace Dawnshard.Menu
                 float seconds = Mathf.FloorToInt(timer % 60);
                 timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-                await GameController.Instance.FindMatch(deckPresenter.Model.Name, IsReverseMode? Constants.ReverseMode: Constants.RankedMode);
+                await GameController.Instance.FindMatch(deckPresenter.Model.Name, IsReverseMode ? Constants.ReverseMode : Constants.RankedMode);
                 waitingAnimation.Events.OnComplete.AddListener(() =>
                 {
                     isSearchingForMatch = true;
@@ -172,7 +172,7 @@ namespace Dawnshard.Menu
             base.Open();
             openAnimation.PlayFeedbacks();
             isOpen = true;
-            if(rankExp is null || rankImage is null) return;
+            if (rankExp is null || rankImage is null) return;
             SetRankImage();
             timer = 0f;
             if (IsReverseMode)
@@ -212,13 +212,13 @@ namespace Dawnshard.Menu
                 rankImage.sprite = AssetDatabase.Instance.GetRankRecord(RankAPI.RankEntry.CurrentRank).rankSprite;
                 rankExp.fillAmount = (float)RankAPI.RankEntry.SubScore / RankAPI.Ranks
                     .Find(rank => rank.Name == RankAPI.RankEntry.CurrentRank)
-                    .Levels[RankAPI.RankEntry.CurrentLevel-1]
+                    .Levels[RankAPI.RankEntry.CurrentLevel - 1]
                     .ExpToLevelUp;
-                    var currentRankLevelName = " ";
-                    for (var i = 0; i < RankAPI.RankEntry.CurrentLevel; i++)
-                        currentRankLevelName += "I";
-                    rankNumber.text = RankAPI.RankEntry.CurrentRank + currentRankLevelName;
-                    rankNumber.font = bebasAsset;
+                var currentRankLevelName = " ";
+                for (var i = 0; i < RankAPI.RankEntry.CurrentLevel; i++)
+                    currentRankLevelName += "I";
+                rankNumber.text = RankAPI.RankEntry.CurrentRank + currentRankLevelName;
+                rankNumber.font = bebasAsset;
             }
             else
             {

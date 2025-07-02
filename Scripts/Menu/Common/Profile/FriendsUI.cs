@@ -18,7 +18,8 @@ public class FriendsUI : MonoBehaviour
     {
         foreach (var entry in spawnedEntries)
         {
-            Destroy(entry.gameObject);
+            if (entry != null)
+                Destroy(entry.gameObject);
         }
         spawnedEntries.Clear();
         ToggleFriendsParent(false);

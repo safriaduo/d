@@ -17,7 +17,6 @@ public class QuestMatchPopup : RankedMatchPopup
     [SerializeField] private GameObject firstQuestFinished;
     [SerializeField] private GameObject secondQuestFinished;
     [SerializeField] private GameObject thirdQuestFinished;
-    [SerializeField] private TMP_Text titleText;
     [SerializeField] private TMP_Text flavourText;
     [SerializeField] private TMP_Text citText;
     [SerializeField] private Transform cardSetParent;
@@ -114,13 +113,17 @@ public class QuestMatchPopup : RankedMatchPopup
         cardSetParent.gameObject.SetActive(true);
         switch (questNumber)
         {
-            case 1:        questTutorial = QuestTutorial.First;
+            case 1:
+                questTutorial = QuestTutorial.First;
                 break;
-            case 2:        questTutorial = QuestTutorial.Second;
+            case 2:
+                questTutorial = QuestTutorial.Second;
                 break;
-            case 3:        questTutorial = QuestTutorial.Third;
+            case 3:
+                questTutorial = QuestTutorial.Third;
                 break;
-            default:         questTutorial = QuestTutorial.First;
+            default:
+                questTutorial = QuestTutorial.First;
                 break;
         }
         findMatchButton.interactable = true;

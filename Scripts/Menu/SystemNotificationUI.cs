@@ -4,25 +4,25 @@ using MoreMountains.Feedbacks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class SystemNotificationUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text notificationText;
+    [SerializeField] private TMP_Text statusText;
     [SerializeField] private Button acceptButton;
     [SerializeField] private Button rejectButton;
     [SerializeField] private MMFeedbacks newNotificationFeedback;
 
     private IApiNotification currentNotification;
 
-    private void OnEnable()
+    private IEnumerator Start()
     {
-        if (GameController.Instance != null && GameController.Instance.Socket != null)
-        {
-            GameController.Instance.Socket.ReceivedNotification += OnNotificationReceived;
-        }
+        yield return new WaitUntil(() => GameController.Instance != null && GameController.Instance.Socket != null);
+        GameController.Instance.Socket.ReceivedNotification += OnNotificationReceived;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         if (GameController.Instance != null && GameController.Instance.Socket != null)
         {
@@ -32,6 +32,8 @@ public class SystemNotificationUI : MonoBehaviour
 
     private void OnNotificationReceived(IApiNotification notification)
     {
+        ClearNotification();
+
         currentNotification = notification;
 
         if (notificationText != null)
@@ -39,7 +41,7 @@ public class SystemNotificationUI : MonoBehaviour
             notificationText.text = notification.Subject;
         }
 
-        bool requiresResponse = notification.Code == 1;
+        bool requiresResponse = notification.Code == -2;
 
         if (acceptButton != null)
         {
@@ -71,14 +73,14 @@ public class SystemNotificationUI : MonoBehaviour
 
         try
         {
-            await FriendsAPI.AcceptFriend(currentNotification.SenderUsername);
+            await FriendsAPI.AcceptFriend(userId: currentNotification.SenderId);
         }
         catch (Exception e)
         {
             Debug.LogException(e);
         }
 
-        ClearNotification();
+        ShowStatusText("Accepted");
     }
 
     private async void RejectRequest()
@@ -88,14 +90,14 @@ public class SystemNotificationUI : MonoBehaviour
 
         try
         {
-            await FriendsAPI.RemoveFriend(currentNotification.SenderUsername);
+            await FriendsAPI.RemoveFriend(userId: currentNotification.SenderId);
         }
         catch (Exception e)
         {
             Debug.LogException(e);
         }
 
-        ClearNotification();
+        ShowStatusText("Declined");
     }
 
     private void ClearNotification()
@@ -103,6 +105,10 @@ public class SystemNotificationUI : MonoBehaviour
         if (notificationText != null)
         {
             notificationText.text = string.Empty;
+        }
+        if (statusText != null)
+        {
+            statusText.gameObject.SetActive(false);
         }
         if (acceptButton != null)
         {
@@ -114,5 +120,13 @@ public class SystemNotificationUI : MonoBehaviour
         }
 
         currentNotification = null;
+    }
+
+    private void ShowStatusText(string text)
+    {
+        statusText.text = text;
+        statusText.gameObject.SetActive(true);
+        rejectButton.gameObject.SetActive(false);
+        acceptButton.gameObject.SetActive(false);
     }
 }

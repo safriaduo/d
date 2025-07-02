@@ -32,22 +32,42 @@ public static class FriendsAPI
     /// <summary>
     /// Remove the given username from the friend list.
     /// </summary>
-    public static async Task RemoveFriend(string username)
+    public static async Task RemoveFriend(string username = null, string userId = null)
     {
-        await GameController.Instance.Client.DeleteFriendsAsync(
-            GameController.Instance.Session,
-            new List<string>(),
-            new List<string> { username });
+        var ids = new List<string>();
+        var usernames = new List<string>();
+
+        if (userId != null)
+        {
+            ids.Add(userId);
+        }
+
+        if (username != null)
+        {
+            usernames.Add(username);
+        }
+
+        await GameController.Instance.Client.DeleteFriendsAsync(GameController.Instance.Session, ids, usernames);
     }
 
     /// <summary>
     /// Accept a pending friend request from the given username.
     /// </summary>
-    public static async Task AcceptFriend(string username)
+    public static async Task AcceptFriend(string username = null, string userId = null)
     {
-        await GameController.Instance.Client.AddFriendsAsync(
-            GameController.Instance.Session,
-            new List<string>(),
-            new List<string> { username });
+        var ids = new List<string>();
+        var usernames = new List<string>();
+
+        if (userId != null)
+        {
+            ids.Add(userId);
+        }
+
+        if (username != null)
+        {
+            usernames.Add(username);
+        }
+
+        await GameController.Instance.Client.AddFriendsAsync(GameController.Instance.Session, ids, usernames);
     }
 }

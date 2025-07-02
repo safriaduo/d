@@ -144,11 +144,18 @@ public class PlayerProfileUI : MonoBehaviour
 
     private void OpenAddFriendPopup()
     {
+        ClearPopupInput();
         popupInputField.Open();
         popupInputField.buttonText.text = "Invite";
         popupInputField.button.onClick.RemoveAllListeners();
         popupInputField.button.onClick.AddListener(() => SendFriendRequest(popupInputField));
-        popupInputField.text.text = "Type the username of a player";
+        popupInputField.text.text = "Add a new friend!";
+    }
+
+    private void ClearPopupInput()
+    {
+        popupInputField.inputField.text = "";
+        popupInputField.ShowMessage("");
     }
 
     private async void SendFriendRequest(PopupInputField popup)
