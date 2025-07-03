@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Dawnshard.Menu;
 
 public class FriendEntry : UserEntry
 {
@@ -90,8 +91,10 @@ public class FriendEntry : UserEntry
 
         //var match = await conn.FindMatch(false);
         //conn.SendFriendlyMatchInvitation(user.Id, match.matchId);
+        string matchId = ""; //match.matchId when connected
 
-        //FriendlyMatchState.StartFriendlyMatch(user.Username, match.matchId);
+        //Register the pending match locally so it appears in the play menu
+        FriendlyMatchManager.StartFriendlyMatch(user.Username, matchId);
     }
 
     /// <summary>
