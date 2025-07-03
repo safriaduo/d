@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Newtonsoft.Json;
+using Dawnshard.Menu;
 
 public class SystemNotificationUI : MonoBehaviour
 {
@@ -15,6 +17,12 @@ public class SystemNotificationUI : MonoBehaviour
     [SerializeField] private MMFeedbacks newNotificationFeedback;
 
     private IApiNotification currentNotification;
+
+    private class FriendlyMatchInviteData
+    {
+        [JsonProperty("matchId")]
+        public string MatchId;
+    }
 
     private IEnumerator Start()
     {
@@ -35,6 +43,20 @@ public class SystemNotificationUI : MonoBehaviour
         ClearNotification();
 
         currentNotification = notification;
+
+        if (notification.Code == -3)
+        {
+            try
+            {
+                var data = JsonConvert.DeserializeObject<FriendlyMatchInviteData>(notification.Content);
+                FriendlyMatchManager.StartFriendlyMatch(notification.Subject, data.MatchId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+            return;
+        }
 
         if (notificationText != null)
         {

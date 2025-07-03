@@ -19,6 +19,7 @@ namespace Dawnshard.Menu
 
         [SerializeField] private RankedMatchPopup rankedMatchPopup;
         [SerializeField] private QuestMatchPopup questMatchPopup;
+        [SerializeField] private FriendlyMatchPopup friendlyMatchPopup;
         [SerializeField] private GameObject deckParent;
         [SerializeField] private PopupOneButton popupOneButton;
         
@@ -36,13 +37,20 @@ namespace Dawnshard.Menu
         {
             base.Enter(from);
 
-            MenuManager.Instance.SetOptions(new Dictionary<string, Action>()
+            var options = new Dictionary<string, Action>
             {
                 { Constants.PlayStateQuest, OnQuestMatchPressed },
                 { Constants.PlayStateReverse, OnReverseMatchPressed },
                 { Constants.PlayStateFriendly, OnTrainingMatchPressed },
                 { Constants.PlayStateRanked, OnRankedMatchPressed }
-            }, Constants.PlayStateQuest, notifications:notifications, lockedOptions:lockedOptions);
+            };
+
+            if (FriendlyMatchManager.HasPendingMatch)
+            {
+                options.Add($"vs {FriendlyMatchManager.OpponentName}", OnFriendlyMatchPressed);
+            }
+
+            MenuManager.Instance.SetOptions(options, Constants.PlayStateQuest, notifications:notifications, lockedOptions:lockedOptions);
 
             OnQuestMatchPressed();
             questMatchPopup.Close();
@@ -101,6 +109,14 @@ namespace Dawnshard.Menu
             ShowDecks();
         }
 
+        private void OnFriendlyMatchPressed()
+        {
+            DeleteAllViews();
+            currentState = PlayStateType.Friendly;
+            friendlyMatchPopup.IsSinglePlayer = true;
+            ShowDecks();
+        }
+
         private void OnRankedMatchPressed()
         {
             DeleteAllViews();
@@ -119,6 +135,7 @@ namespace Dawnshard.Menu
             }
             questMatchPopup.Close();
             rankedMatchPopup.Close();
+            friendlyMatchPopup.Close();
         }
 
         private void SelectDeck(DeckModel deck)
@@ -133,6 +150,12 @@ namespace Dawnshard.Menu
             {
                 questMatchPopup.SetDeckView(deck, () => EnableDecksInteraction(true));
                 questMatchPopup.Open();
+            }
+            else if (currentState == PlayStateType.Friendly)
+            {
+                friendlyMatchPopup.SetMatch(FriendlyMatchManager.MatchId);
+                friendlyMatchPopup.SetDeckView(deck, () => EnableDecksInteraction(true));
+                friendlyMatchPopup.Open();
             }
         }
 

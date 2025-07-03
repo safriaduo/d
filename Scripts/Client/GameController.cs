@@ -425,6 +425,24 @@ public class GameController : MonoBehaviour
     }
 
     /// <summary>
+    /// Join an existing friendly match using the provided match id and deck.
+    /// </summary>
+    public async Task JoinFriendlyMatch(string matchId, string deckId)
+    {
+        this.matchId = matchId;
+
+        currentMatch = await Socket.JoinMatchAsync(matchId, new Dictionary<string, string>()
+        {
+            { PLAYER_DECK_METADATA, deckId },
+        });
+
+        SceneManager.LoadScene(Constants.GameScene);
+
+        IsInRankedMatch = false;
+        StartMatch(currentMatch);
+    }
+
+    /// <summary>
     /// Starts the matchmaking in a specified game mode
     /// </summary>
     public async Task FindMatch(string deckId, string gameMode = Constants.RankedMode)
