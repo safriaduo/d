@@ -22,6 +22,9 @@ public class SystemNotificationUI : MonoBehaviour
     {
         [JsonProperty("matchId")]
         public string MatchId;
+
+        [JsonProperty("username")]
+        public string Username;
     }
 
     private IEnumerator Start()
@@ -44,26 +47,26 @@ public class SystemNotificationUI : MonoBehaviour
 
         currentNotification = notification;
 
-        if (notification.Code == -3)
-        {
-            try
-            {
-                var data = JsonConvert.DeserializeObject<FriendlyMatchInviteData>(notification.Content);
-                FriendlyMatchManager.StartFriendlyMatch(notification.Subject, data.MatchId);
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-            return;
-        }
-
         if (notificationText != null)
         {
             notificationText.text = notification.Subject;
         }
 
         bool requiresResponse = notification.Code == -2;
+
+        if (notification.Code == -3)
+        {
+            try
+            {
+                var data = JsonConvert.DeserializeObject<FriendlyMatchInviteData>(notification.Content);
+                FriendlyMatchManager.StartFriendlyMatch(data.Username, data.MatchId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+            requiresResponse = true;
+        }
 
         if (acceptButton != null)
         {
@@ -93,6 +96,13 @@ public class SystemNotificationUI : MonoBehaviour
         if (currentNotification == null)
             return;
 
+        if (currentNotification.Code == -3)
+        {
+            MenuManager.Instance.GoToState(Constants.PlayState, true);
+            ClearNotification();
+            return;
+        }
+
         try
         {
             await FriendsAPI.AcceptFriend(userId: currentNotification.SenderId);
@@ -109,6 +119,13 @@ public class SystemNotificationUI : MonoBehaviour
     {
         if (currentNotification == null)
             return;
+
+        if (currentNotification.Code == -3)
+        {
+            FriendlyMatchManager.Clear();
+            ShowStatusText("Declined");
+            return;
+        }
 
         try
         {

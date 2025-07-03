@@ -45,14 +45,25 @@ namespace Dawnshard.Menu
                 { Constants.PlayStateRanked, OnRankedMatchPressed }
             };
 
+            string defaultOption = Constants.PlayStateQuest;
+
             if (FriendlyMatchManager.HasPendingMatch)
             {
-                options.Add($"vs {FriendlyMatchManager.OpponentName}", OnFriendlyMatchPressed);
+                string friendOption = $"vs {FriendlyMatchManager.OpponentName}";
+                options.Add(friendOption, OnFriendlyMatchPressed);
+                defaultOption = friendOption;
             }
 
-            MenuManager.Instance.SetOptions(options, Constants.PlayStateQuest, notifications:notifications, lockedOptions:lockedOptions);
+            MenuManager.Instance.SetOptions(options, defaultOption, notifications: notifications, lockedOptions: lockedOptions);
 
-            OnQuestMatchPressed();
+            if (FriendlyMatchManager.HasPendingMatch)
+            {
+                OnFriendlyMatchPressed();
+            }
+            else
+            {
+                OnQuestMatchPressed();
+            }
             questMatchPopup.Close();
             rankedMatchPopup.Close();
         }
