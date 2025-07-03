@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Dawnshard.Network;
 using Dawnshard.Presenters;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 namespace Dawnshard.Menu
 {
@@ -18,6 +20,9 @@ namespace Dawnshard.Menu
         }
 
         [SerializeField] private RankedMatchPopup rankedMatchPopup;
+        [SerializeField] private FriendlyMatchPopup friendlyMatchPopup;
+        [SerializeField] private UnityEngine.UI.Button challengeButtonPrefab;
+        [SerializeField] private Transform challengeButtonParent;
         [SerializeField] private QuestMatchPopup questMatchPopup;
         [SerializeField] private GameObject deckParent;
         [SerializeField] private PopupOneButton popupOneButton;
@@ -30,6 +35,7 @@ namespace Dawnshard.Menu
         private List<DeckModel> decks;
         private List<InteractableDeckPresenter> deckPresenters = new();
         private PlayStateType currentState = PlayStateType.None;
+        private GameController.FriendChallenge currentChallenge;
 
 
         public override void Enter(AState from)
@@ -47,6 +53,8 @@ namespace Dawnshard.Menu
             OnQuestMatchPressed();
             questMatchPopup.Close();
             rankedMatchPopup.Close();
+
+            SpawnChallengeButtons();
         }
 
         private void OnReverseMatchPressed()
@@ -119,6 +127,7 @@ namespace Dawnshard.Menu
             }
             questMatchPopup.Close();
             rankedMatchPopup.Close();
+            friendlyMatchPopup.Close();
         }
 
         private void SelectDeck(DeckModel deck)
@@ -128,6 +137,15 @@ namespace Dawnshard.Menu
             {
                 rankedMatchPopup.SetDeckView(deck, () => EnableDecksInteraction(true));
                 rankedMatchPopup.Open();
+            }
+            else if (currentState == PlayStateType.Friendly)
+            {
+                friendlyMatchPopup.SetDeckView(deck, () => EnableDecksInteraction(true));
+                if (currentChallenge != null)
+                {
+                    friendlyMatchPopup.SetChallenge(currentChallenge);
+                }
+                friendlyMatchPopup.Open();
             }
             else if (currentState == PlayStateType.Quest)
             {
@@ -142,6 +160,32 @@ namespace Dawnshard.Menu
             {
                 deckPresenter.EnableInteraction(enable);
             }
+        }
+
+        private void SpawnChallengeButtons()
+        {
+            foreach (Transform child in challengeButtonParent)
+            {
+                Destroy(child.gameObject);
+            }
+
+            foreach (var challenge in GameController.Instance.PendingFriendChallenges)
+            {
+                var btn = Instantiate(challengeButtonPrefab, challengeButtonParent);
+                var txt = btn.GetComponentInChildren<TMPro.TMP_Text>();
+                if (txt != null)
+                    txt.text = $"Play vs {challenge.Username}";
+                btn.onClick.AddListener(() => OnChallengeButton(challenge));
+            }
+        }
+
+        private void OnChallengeButton(GameController.FriendChallenge challenge)
+        {
+            currentChallenge = challenge;
+            DeleteAllViews();
+            currentState = PlayStateType.Friendly;
+            friendlyMatchPopup.IsSinglePlayer = true;
+            ShowDecks();
         }
 
         private void ShowDecks()

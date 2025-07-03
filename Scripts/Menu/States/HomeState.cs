@@ -87,7 +87,15 @@ namespace Dawnshard.Menu
             int spawnedQuests = 0;
             foreach (var notification in notifications)
             {
-                if (notification.Code == 2 || notification.Code == 3)
+                if (notification.Code == 1)
+                {
+                    var challengeData = JsonConvert.DeserializeObject<Dictionary<string, string>>(notification.Content);
+                    if (challengeData != null && challengeData.ContainsKey("matchId") && challengeData.ContainsKey("username"))
+                    {
+                        GameController.Instance.AddFriendChallenge(challengeData["matchId"], challengeData["username"]);
+                    }
+                }
+                else if (notification.Code == 2 || notification.Code == 3)
                 {
                     if (spawnedQuests >= 3)
                     {
