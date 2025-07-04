@@ -2,14 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Dawnshard.Menu;
-using Dawnshard.Network;
 using Dawnshard.Presenters;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuestMatchPopup : RankedMatchPopup
+public class QuestMatchPopup : TrainingMatchPopup
 {
     [SerializeField] private Button firstQuestButton;
     [SerializeField] private Button secondQuestButton;
@@ -67,9 +66,7 @@ public class QuestMatchPopup : RankedMatchPopup
     {
         tutorialNumber = GameController.Instance.UserMetadata.CompletedTutorials;
         //tutorialNumber = GameController.Instance.GetTutorialStep();
-        base.Start();
-        IsSinglePlayer = true;
-        firstQuestButton.onClick.AddListener(() => { SelectQuest(1); });
+        base.Start();        firstQuestButton.onClick.AddListener(() => { SelectQuest(1); });
         if (tutorialNumber == 2)
         {
             thirdQuestButton.interactable = false;
@@ -145,7 +142,7 @@ public class QuestMatchPopup : RankedMatchPopup
         }
     }
 
-    protected override async void StartAIMatchAsync()
+    protected override async void StartMatchAsync()
     {
         try
         {
