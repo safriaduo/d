@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nakama;
+using Newtonsoft.Json;
 
 public static class FriendsAPI
 {
@@ -70,4 +71,20 @@ public static class FriendsAPI
 
         await GameController.Instance.Client.AddFriendsAsync(GameController.Instance.Session, ids, usernames);
     }
+
+    private class FriendlyMatchPayload
+    {
+        [JsonProperty("friendId")]
+        public string friendId;
+    }
+
+    /// <summary>
+    /// Send a request for a friendly match to a friend
+    /// </summary>
+    public static async Task<string> SendFriendlyMatchRequest(string userId)
+    {
+        var matchId = await GameController.Instance.Socket.RpcAsync("friendly_match", JsonConvert.SerializeObject(new FriendlyMatchPayload() { friendId = userId }));
+        return matchId.Payload;
+    }
+
 }

@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Dawnshard.Menu;
+using System;
 
 public class FriendEntry : UserEntry
 {
@@ -19,7 +21,7 @@ public class FriendEntry : UserEntry
         this.user = user;
 
         base.Initialize(user.Username, color);
-          
+
 
         switch (state)
         {
@@ -85,13 +87,20 @@ public class FriendEntry : UserEntry
     /// </summary>
     public async void SendMatchInvitationAsync()
     {
-        //add asset referencer and uncomment
-        //NakamaConnection conn = AssetReferencer.Instance.connection;
+        string matchId = "";
 
-        //var match = await conn.FindMatch(false);
-        //conn.SendFriendlyMatchInvitation(user.Id, match.matchId);
+        try
+        {
+            matchId = await FriendsAPI.SendFriendlyMatchRequest(user.Id);
+        }
+        catch (Exception e)
+        {
+            mutualFriendsParent.SetActive(false);
+            Debug.LogException(e);
+        }
 
-        //FriendlyMatchState.StartFriendlyMatch(user.Username, match.matchId);
+        //Register the pending match locally so it appears in the play menu
+        FriendlyMatchManager.StartFriendlyMatch(user.Username, matchId);
     }
 
     /// <summary>
