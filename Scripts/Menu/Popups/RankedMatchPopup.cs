@@ -101,7 +101,9 @@ namespace Dawnshard.Menu
 
             try
             {
-                await GameController.Instance.StartAIMatch(deckPresenter.Model.Name, false);
+                await GameController.Instance.JoinFriendlyMatch(matchId, deckPresenter.Model.Name);
+
+                //await GameController.Instance.StartAIMatch(deckPresenter.Model.Name, false);
                 isSearchingForMatch = true;
             }
             catch (Exception e)
@@ -110,6 +112,17 @@ namespace Dawnshard.Menu
                 ShowError(e.Message);
                 return;
             }
+        }
+
+        private string matchId;
+
+        /// <summary>
+        /// Set the match id to join when the popup starts the match.
+        /// </summary>
+        /// <param name="matchId">Match identifier provided by the inviter.</param>
+        public void SetMatch(string matchId)
+        {
+            this.matchId = matchId;
         }
 
         public async void FindMatchAsync()

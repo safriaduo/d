@@ -19,10 +19,9 @@ namespace Dawnshard.Menu
 
         [SerializeField] private RankedMatchPopup rankedMatchPopup;
         [SerializeField] private QuestMatchPopup questMatchPopup;
-        [SerializeField] private FriendlyMatchPopup friendlyMatchPopup;
         [SerializeField] private GameObject deckParent;
         [SerializeField] private PopupOneButton popupOneButton;
-        
+
         [Header("Show info UI")]
         [SerializeField] private CardListSelector cardListSelector;
         [SerializeField] private Transform cardSetParentTransform;
@@ -82,11 +81,11 @@ namespace Dawnshard.Menu
             {
                 popupOneButton.Open();
                 popupOneButton.SetUpPopupButton(
-                    "To play you need to have a deck and you don't have any deck yet, do you want to create one?","New deck!", () =>
-                {
-                    MenuManager.Instance.GoToState(Constants.CollectionState, true);
-                    popupOneButton.Close();
-                },"You have no decks");
+                    "To play you need to have a deck and you don't have any deck yet, do you want to create one?", "New deck!", () =>
+                    {
+                        MenuManager.Instance.GoToState(Constants.CollectionState, true);
+                        popupOneButton.Close();
+                    }, "You have no decks");
             }
             else
             {
@@ -124,7 +123,7 @@ namespace Dawnshard.Menu
         {
             DeleteAllViews();
             currentState = PlayStateType.Friendly;
-            friendlyMatchPopup.IsSinglePlayer = true;
+            rankedMatchPopup.IsSinglePlayer = true;
             ShowDecks();
         }
 
@@ -146,7 +145,6 @@ namespace Dawnshard.Menu
             }
             questMatchPopup.Close();
             rankedMatchPopup.Close();
-            friendlyMatchPopup.Close();
         }
 
         private void SelectDeck(DeckModel deck)
@@ -164,9 +162,9 @@ namespace Dawnshard.Menu
             }
             else if (currentState == PlayStateType.Friendly)
             {
-                friendlyMatchPopup.SetMatch(FriendlyMatchManager.MatchId);
-                friendlyMatchPopup.SetDeckView(deck, () => EnableDecksInteraction(true));
-                friendlyMatchPopup.Open();
+                rankedMatchPopup.SetMatch(FriendlyMatchManager.MatchId);
+                rankedMatchPopup.SetDeckView(deck, () => EnableDecksInteraction(true));
+                rankedMatchPopup.Open();
             }
         }
 
@@ -208,7 +206,7 @@ namespace Dawnshard.Menu
                 }
             }*/
         }
-        
+
         public void ShowDeckUI(DeckModel deckModel)
         {
             cardListSelector.gameObject.SetActive(true);
@@ -216,7 +214,7 @@ namespace Dawnshard.Menu
             List<CardSetPresenter> cardSetsUI = new();
             foreach (var setIds in deckModel.CardSetIds)
             {
-                if(!CardSetAPI.CardSets.Exists(cardSetModel => cardSetModel.ItemId == setIds))
+                if (!CardSetAPI.CardSets.Exists(cardSetModel => cardSetModel.ItemId == setIds))
                     return;
 
                 var setModel = CardSetAPI.CardSets.Find(cardSetModel => cardSetModel.ItemId == setIds);
@@ -229,7 +227,7 @@ namespace Dawnshard.Menu
             }
             cardListSelector.Initialize(0, HideInfoUI, titleText: deckModel.Name);
         }
-        
+
         private void HideInfoUI()
         {
             foreach (Transform child in cardSetParentTransform)

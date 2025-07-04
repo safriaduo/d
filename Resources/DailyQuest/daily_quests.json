@@ -1,0 +1,521 @@
+[
+    {
+        "id": "tutorial_1",
+        "isTutorial":true,
+        "title": "Enter the Arena",
+        "description": "Play 1 matches.",
+        "type": "play_match",
+        "maxProgress": 1,
+        "reward": { "resourceId": "standard_pack", "amount": 1 }
+    },
+    {
+        "id": "tutorial_2",
+        "isTutorial":true,
+        "title": "Enter the Arena",
+        "description": "Play 3 matches.",
+        "type": "play_match",
+        "maxProgress": 3,
+        "reward": { "resourceId": "standard_pack", "amount": 1 }
+    },
+    {
+        "id": "tutorial_3",
+        "isTutorial":true,
+        "title": "Enter the Arena",
+        "description": "Play 5 matches.",
+        "type": "play_match",
+        "maxProgress": 5,
+        "reward": { "resourceId": "standard_pack", "amount": 1 }
+    }, 
+    {
+        "id": "daily_world_play_al",
+        "isTutorial":false,
+        "title": "World Tour",
+        "description": "Choose Ancestral Lodge as your active world 3 times.",
+        "type": "play_with_world_Ancestral Lodge",
+        "maxProgress": 3,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    },
+    {
+        "id": "daily_world_play_le",
+        "isTutorial":false,
+        "title": "World Tour",
+        "description": "Choose Lost Eden as your active world 3 times.",
+        "type": "play_with_world_Lost Eden",
+        "maxProgress": 3,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    },
+    {
+        "id": "daily_world_play_aod",
+        "isTutorial":false,
+        "title": "World Tour",
+        "description": "Choose Army of Darkness as your active world 3 times.",
+        "type": "play_with_world_Army of Darkness",
+        "maxProgress": 3,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    },
+    {
+        "id": "daily_world_play_gwo",
+        "isTutorial":false,
+        "title": "World Tour",
+        "description": "Choose Golden Wings Order as your active world 3 times.",
+        "type": "play_with_world_Golden Wings Order",
+        "maxProgress": 3,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    },
+    {
+        "id": "daily_world_play_pbt",
+        "isTutorial":false,
+        "title": "World Tour",
+        "description": "Choose Progeny Beyond Time as your active world 3 times.",
+        "type": "play_with_world_Progeny Beyond Time",
+        "maxProgress": 3,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    },
+    {
+        "id": "daily_world_play_cotv",
+        "isTutorial":false,
+        "title": "World Tour",
+        "description": "Choose Court of the 7 Vessels as your active world 3 times.",
+        "type": "play_with_world_Court of the 7 Vessels",
+        "maxProgress": 3,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    },
+    {
+        "id": "daily_world_win_al",
+        "isTutorial":false,
+        "title": "World Tour",
+        "description": "Win 2 matches with Ancestral Lodge.",
+        "type": "win_match_with_Ancestral Lodge",
+        "maxProgress": 2,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 90
+        }
+    },
+    {
+        "id": "daily_world_win_le",
+        "isTutorial":false,
+        "title": "World Tour",
+        "description": "Win 2 matches with Lost Eden.",
+        "type": "win_match_with_Lost Eden",
+        "maxProgress": 2,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 90
+        }
+    },
+    {
+        "id": "daily_world_win_aod",
+        "isTutorial":false,
+        "title": "World Tour",
+        "description": "Win 2 matches with Army of Darkness",
+        "type": "win_match_with_Army of Darkness",
+        "maxProgress": 2,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 90
+        }
+    },
+    {
+        "id": "daily_world_win_gwo",
+        "isTutorial":false,
+        "title": "World Tour",
+        "description": "Win 2 matches with Golden Wings Order ",
+        "type": "win_match_with_Golden Wings Order",
+        "maxProgress": 2,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 90
+        }
+    },
+    {
+        "id": "daily_world_win_pbt",
+        "isTutorial":false,
+        "title": "World Tour",
+        "description": "Win 2 matches with Progeny Beyond Time",
+        "type": "win_match_with_Progeny Beyond Time",
+        "maxProgress": 2,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 90
+        }
+    },
+    {
+        "id": "daily_world_win_cotv",
+        "isTutorial":false,
+        "title": "World Tour",
+        "description": "Win 2 matches with Court of the 7 Vessels.",
+        "type": "win_match_with_Court of the 7 Vessels",
+        "maxProgress": 2,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 90
+        }
+    },
+    {
+        "id": "daily_warmup",
+        "isTutorial":false,
+        "title": "Just Warming Up",
+        "description": "Play 2 matches.",
+        "type": "play_match",
+        "maxProgress": 2,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 50
+        }
+    }, 
+    {
+        "id": "daily_victory_lap",
+        "isTutorial":false,
+        "title": "Victory Lap",
+        "description": "Win 3 matches.",
+        "type": "win_match",
+        "maxProgress": 3,
+        "reward": {
+            "resourceId": "standard_pack",
+            "amount": 1
+        }
+    },
+    {
+        "id": "daily_clash_of_blades",
+        "isTutorial":false,
+        "title": "Clash of Blades",
+        "description": "Fight with a creature 5 times.",
+        "type": "fight_action",
+        "maxProgress": 5,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 50
+        }
+    },
+    {
+        "id": "daily_shard_hunter",
+        "isTutorial":false,
+        "title": "Shard Hunter",
+        "description": "Gain 30 shards.",
+        "type": "gain_shard",
+        "maxProgress": 30,
+        "reward": {
+            "resourceId": "standard_pack",
+            "amount": 1
+        }
+    },
+    {
+        "id": "daily_shadow_strike",
+        "isTutorial":false,
+        "title": "Into the Shadows",
+        "description": "Give Hidden to a creature 5 times.",
+        "type": "add_hidden",
+        "maxProgress": 5,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 50
+        }
+    },
+    {
+        "id": "daily_pay_the_price",
+        "isTutorial":false,
+        "title": "Pay the Price",
+        "description": "Make your opponent lose a total of 15 shards.",
+        "type": "lose_shard",
+        "maxProgress": 15,
+        "reward": {
+            "resourceId": "standard_pack",
+            "amount": 1
+        }
+    },
+    {
+        "id": "daily_silence_them",
+        "isTutorial":false,
+        "title": "Silence Them All",
+        "description": "Silence 5 creatures.",
+        "type": "add_silence",
+        "maxProgress": 5,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 50
+        }
+    },
+    {
+        "id": "daily_cardstorm",
+        "isTutorial":false,
+        "title": "Cardstorm",
+        "description": "Draw 40 cards.",
+        "type": "move_deck_hand",
+        "maxProgress": 40,
+        "reward": {
+            "resourceId": "standard_pack",
+            "amount": 1
+        }
+    },
+    {
+        "id": "daily_off_the_board",
+        "isTutorial":false,
+        "title": "Off the Board",
+        "description": "Destroy 20 creatures.",
+        "type": "move_opponent_creature_board_graveyard",
+        "maxProgress": 20,
+        "reward": {
+            "resourceId": "standard_pack",
+            "amount": 1
+        }
+    },
+    {
+        "id": "daily_strategy_hand",
+        "isTutorial":false,
+        "title": "Strategist's Hand",
+        "description": "Play 10 action cards.",
+        "type": "move_action_hand_action",
+        "maxProgress": 10,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 50
+        }
+    },
+    {
+        "id": "daily_clean_sweep",
+        "isTutorial":false,
+        "title": "Clean Sweep",
+        "description": "Destroy 10 creatures.",
+        "type": "move_opponent_creature_board_graveyard",
+        "maxProgress": 10,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 50
+        }
+    },
+    {
+        "id": "daily_creature_feature",
+        "isTutorial":false,
+        "title": "Creature Feature",
+        "description": "Play 15 creatures.",
+        "type": "move_creature_hand_board",
+        "maxProgress": 15,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 90
+        }
+    },
+    {
+        "id": "daily_toss",
+        "isTutorial":false,
+        "title": "Tactical Toss",
+        "description": "Make your opponent discard 5 cards.",
+        "type": "move_opponent_hand_graveyard",
+        "maxProgress": 5,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 50
+        }
+    },
+    {
+        "id": "daily_creation",
+        "isTutorial":false,
+        "title": "Creation Surge",
+        "description": "Create 10 cards.",
+        "type": "trigger_CreateCard",
+        "maxProgress": 10,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 90
+        }
+    },
+    {
+        "id": "daily_shield_wall",
+        "isTutorial":false,
+        "title": "Shield Wall",
+        "description": "Shield a creature 2 times.",
+        "type": "add_shield",
+        "maxProgress": 2,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    },
+    {
+        "id": "daily_thief",
+        "isTutorial":false,
+        "title": "Sticky Fingers",
+        "description": "Steal a total of 4 shards.",
+        "type": "trigger_StealShard",
+        "maxProgress": 4,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 50
+        }
+    },
+    {
+        "id": "daily_deadly",
+        "isTutorial":false,
+        "title": "One Hit Kill",
+        "description": "Give Deadly to a creature 2 times.",
+        "type": "add_deadly",
+        "maxProgress": 2,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    },
+    {
+        "id": "daily_burn",
+        "isTutorial":false,
+        "title": "Burn It Down",
+        "description": "Damage a total of 10 creatures.",
+        "type": "remove_opponent_health",
+        "maxProgress": 10,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 50
+        }
+    },
+    {
+        "id": "daily_brutality",
+        "isTutorial":false,
+        "title": "No Holding Back",
+        "description": "Give Brutality to a creature 2 times.",
+        "type": "add_brutality",
+        "maxProgress": 2,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    },
+    {
+        "id": "daily_convert",
+        "isTutorial":false,
+        "title": "Shifting Forms",
+        "description": "Convert 4 cards.",
+        "type": "trigger_ConvertCard",
+        "maxProgress": 4,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 50
+        }
+    },
+    {
+        "id": "daily_reap",
+        "isTutorial":false,
+        "title": "Reap the Rewards",
+        "description": "Reap 4 times with your Creatures.",
+        "type": "reap_action",
+        "maxProgress": 4,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    },
+    {
+        "id": "daily_marks",
+        "isTutorial":false,
+        "title": "Marked for Ruin",
+        "description": "Give Mark to 8 creatures.",
+        "type": "add_mark",
+        "maxProgress": 8,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 50
+        }
+    },
+    {
+        "id": "daily_relics",
+        "isTutorial":false,
+        "title": "Relic Rush",
+        "description": "Play 2 artifacts.",
+        "type": "move_artifact_hand_board",
+        "maxProgress": 2,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    },
+    {
+        "id": "daily_exhaust",
+        "isTutorial":false,
+        "title": "Drain Them Dry",
+        "description": "Exhaust a creature 5 times.",
+        "type": "add_exhaust",
+        "maxProgress": 5,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 50
+        }
+    },
+    {
+        "id": "daily_provoke",
+        "isTutorial":false,
+        "title": "Face Me!",
+        "description": "Give Provoke to a creature 2 times.",
+        "type": "add_provoke",
+        "maxProgress": 2,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    },
+    {
+        "id": "daily_haste",
+        "isTutorial":false,
+        "title": "Quick Deployment",
+        "description": "Give Haste to a creature 2 times.",
+        "type": "add_haste",
+        "maxProgress": 2,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    },
+    {
+        "id": "daily_draw",
+        "isTutorial":false,
+        "title": "Brainstorm",
+        "description": "Draw 10 cards.",
+        "type": "move_deck_hand",
+        "maxProgress": 10,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    },
+    {
+        "id": "daily_scrap",
+        "isTutorial":false,
+        "title": "Scrap It",
+        "description": "Destroy 1 artifact.",
+        "type": "move_artifact_board_graveyard",
+        "maxProgress": 1,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    },
+    {
+        "id": "daily_lock",
+        "isTutorial":false,
+        "title": "Seal the Flow",
+        "description": "Lock 3 shards.",
+        "type": "trigger_LockShard",
+        "maxProgress": 3,
+        "reward": {
+            "resourceId": "tethras",
+            "amount": 25
+        }
+    }
+]

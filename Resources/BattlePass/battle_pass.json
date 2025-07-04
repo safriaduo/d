@@ -1,0 +1,455 @@
+  {
+  "Name":"Battle Pass",
+  "Levels":[
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "tethras",
+      "Amount": 25
+      },
+      "LevelUpExperience": 0
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "tethras",
+      "Amount": 25
+      },
+      "LevelUpExperience": 75
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "debristar",
+      "Amount": 20
+      },
+      "LevelUpExperience": 75
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "tethras",
+      "Amount": 25
+      },
+      "LevelUpExperience": 75
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "standard_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 75
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "debristar",
+      "Amount": 20
+      },
+      "LevelUpExperience": 75
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "tethras",
+      "Amount": 25
+      },
+      "LevelUpExperience": 75
+    },
+    {
+      "IsPremium": true,
+      "Reward":
+      {
+        "ResourceId": "tethras",
+      "Amount": 50
+      },
+      "LevelUpExperience": 150
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "debristar",
+      "Amount": 20
+      },
+      "LevelUpExperience": 150
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "world_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 150
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "tethras",
+      "Amount": 50
+      },
+      "LevelUpExperience": 225
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "debristar",
+      "Amount": 20
+      },
+      "LevelUpExperience": 225
+    },
+    {
+      "IsPremium": true,
+      "Reward":
+      {
+        "ResourceId": "tethras",
+      "Amount": 75
+      },
+      "LevelUpExperience": 225
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "tethras",
+      "Amount": 25
+      },
+      "LevelUpExperience": 300
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "standard_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 300
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "debristar",
+      "Amount": 40
+      },
+      "LevelUpExperience": 300
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "tethras",
+      "Amount": 75
+      },
+      "LevelUpExperience": 375
+    },
+    {
+      "IsPremium": true,
+      "Reward":
+      {
+        "ResourceId": "standard_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 375
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "debristar",
+      "Amount": 40
+      },
+      "LevelUpExperience": 450
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "world_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 450
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "tethras",
+      "Amount": 50
+      },
+      "LevelUpExperience": 450
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "debristar",
+      "Amount": 20
+      },
+      "LevelUpExperience": 525
+    },
+    {
+      "IsPremium": true,
+      "Reward":
+      {
+        "ResourceId": "standard_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 525
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "tethras",
+      "Amount": 75
+      },
+      "LevelUpExperience": 600
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "standard_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 600
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "debristar",
+      "Amount": 40
+      },
+      "LevelUpExperience": 600
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "tethras",
+      "Amount": 75
+      },
+      "LevelUpExperience": 675
+    },
+    {
+      "IsPremium": true,
+      "Reward":
+      {
+        "ResourceId": "world_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 675
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "debristar",
+      "Amount": 40
+      },
+      "LevelUpExperience": 750
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "world_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 750
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "tethras",
+      "Amount": 75
+      },
+      "LevelUpExperience": 825
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "debristar",
+      "Amount": 40
+      },
+      "LevelUpExperience": 825
+    },
+    {
+      "IsPremium": true,
+      "Reward":
+      {
+        "ResourceId": "world_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 900
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "tethras",
+      "Amount": 75
+      },
+      "LevelUpExperience": 900
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "standard_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 900
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "debristar",
+      "Amount": 40
+      },
+      "LevelUpExperience": 975
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "standard_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 975
+    },
+    {
+      "IsPremium": true,
+      "Reward":
+      {
+        "ResourceId": "shiny_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 1050
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "debristar",
+      "Amount": 40
+      },
+      "LevelUpExperience": 1050
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "shiny_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 1125
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "tethras",
+      "Amount": 75
+      },
+      "LevelUpExperience": 1125
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "debristar",
+      "Amount": 40
+      },
+      "LevelUpExperience": 1200
+    },
+    {
+      "IsPremium": true,
+      "Reward":
+      {
+        "ResourceId": "shiny_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 1200
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "standard_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 1275
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "world_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 1275
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "debristar",
+      "Amount": 40
+      },
+      "LevelUpExperience": 1350
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "world_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 1350
+    },
+    {
+      "IsPremium": true,
+      "Reward":
+      {
+        "ResourceId": "blazing_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 1425
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "debristar",
+      "Amount": 40
+      },
+      "LevelUpExperience": 1425
+    },
+    {
+      "IsPremium": false,
+      "Reward":
+      {
+        "ResourceId": "blazing_pack",
+      "Amount": 1
+      },
+      "LevelUpExperience": 1500
+    }
+  ]
+}

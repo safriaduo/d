@@ -25,7 +25,7 @@ namespace Dawnshard.Menu
         /// <inheritdoc />
         protected override async void StartAIMatchAsync()
         {
-            PlayWaitingAnimation();
+            //PlayWaitingAnimation();
             try
             {
                 await GameController.Instance.JoinFriendlyMatch(matchId, deckPresenter.Model.Name);

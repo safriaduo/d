@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Void", 
+        "costToUpgrade":0,
+        "rewardForBurn":100
+    },
+    {
+        "name": "Shiny", 
+        "costToUpgrade":300,
+        "rewardForBurn":300
+    },
+    {
+        "name": "Blazing", 
+        "costToUpgrade":900,
+        "rewardForBurn":900
+    },
+    {
+        "name": "Oneiric", 
+        "costToUpgrade":2700,
+        "rewardForBurn":2700
+    }
+]

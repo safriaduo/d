@@ -1,0 +1,40 @@
+   {
+    "Items": [
+      {
+        "Name": "Standard Pack",
+        "Description": "A standard pack",
+        "SKU": "standard-pack",
+        "ResourceSpent": "tethras",
+        "ResourceObtained": "standard_pack",
+        "Cost": 100,
+        "AmountGained": 1
+      },
+      {
+        "Name": "Shiny Pack",
+        "Description": "A pack that has a guaranteed Shiny set",
+        "SKU": "shiny-pack",
+        "ResourceSpent": "tethras",
+        "ResourceObtained": "shiny_pack",
+        "Cost": 300,
+        "AmountGained": 1
+      },
+      {
+        "Name": "Blazing Pack",
+        "Description": "A pack that has a guaranteed Blazing set",
+        "SKU": "blazing-pack",
+        "ResourceSpent": "tethras",
+        "ResourceObtained": "blazing_pack",
+        "Cost": 900,
+        "AmountGained": 1
+      },
+      {
+        "Name": "World Pack",
+        "Description": "A pack of a world you can select",
+        "SKU": "world-pack",
+        "ResourceSpent": "tethras",
+        "ResourceObtained": "world_pack",
+        "Cost": 160,
+        "AmountGained": 1
+      }
+]
+   }

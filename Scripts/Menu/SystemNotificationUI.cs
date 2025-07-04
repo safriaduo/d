@@ -52,21 +52,7 @@ public class SystemNotificationUI : MonoBehaviour
             notificationText.text = notification.Subject;
         }
 
-        bool requiresResponse = notification.Code == -2;
-
-        if (notification.Code == -3)
-        {
-            try
-            {
-                var data = JsonConvert.DeserializeObject<FriendlyMatchInviteData>(notification.Content);
-                FriendlyMatchManager.StartFriendlyMatch(data.Username, data.MatchId);
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-            requiresResponse = true;
-        }
+        bool requiresResponse = notification.Code == -2 || notification.Code == 201; //-2 is friend request, 201 is friendly challenge
 
         if (acceptButton != null)
         {
@@ -96,20 +82,33 @@ public class SystemNotificationUI : MonoBehaviour
         if (currentNotification == null)
             return;
 
-        if (currentNotification.Code == -3)
+        if (currentNotification.Code == 201)
         {
-            MenuManager.Instance.GoToState(Constants.PlayState, true);
-            ClearNotification();
-            return;
+            try
+            {
+                var data = JsonConvert.DeserializeObject<FriendlyMatchInviteData>(currentNotification.Content);
+                FriendlyMatchManager.StartFriendlyMatch(data.Username, data.MatchId);
+                MenuManager.Instance.GoToState(Constants.PlayState, true);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                ShowStatusText(e.Message);
+                return;
+            }
         }
-
-        try
+        else if (currentNotification.Code == -2)
         {
-            await FriendsAPI.AcceptFriend(userId: currentNotification.SenderId);
-        }
-        catch (Exception e)
-        {
-            Debug.LogException(e);
+            try
+            {
+                await FriendsAPI.AcceptFriend(userId: currentNotification.SenderId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                ShowStatusText(e.Message);
+                return;
+            }
         }
 
         ShowStatusText("Accepted");
@@ -120,20 +119,23 @@ public class SystemNotificationUI : MonoBehaviour
         if (currentNotification == null)
             return;
 
-        if (currentNotification.Code == -3)
+        if (currentNotification.Code == 201)
         {
             FriendlyMatchManager.Clear();
-            ShowStatusText("Declined");
-            return;
         }
+        else if (currentNotification.Code == -2)
+        {
 
-        try
-        {
-            await FriendsAPI.RemoveFriend(userId: currentNotification.SenderId);
-        }
-        catch (Exception e)
-        {
-            Debug.LogException(e);
+            try
+            {
+                await FriendsAPI.RemoveFriend(userId: currentNotification.SenderId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                ShowStatusText(e.Message);
+                return;
+            }
         }
 
         ShowStatusText("Declined");

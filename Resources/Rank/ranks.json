@@ -1,0 +1,96 @@
+[
+    {
+        "Name": "Wanderer",
+        "Levels": [
+            {
+                "PointsToRankUp": 1
+            }, 
+            {
+                "PointsToRankUp": 1
+            }
+        ] 
+    },
+    {
+        "Name": "Scout",
+        "Levels": [
+            {
+                "PointsToRankUp": 1
+            }, 
+            {
+                "PointsToRankUp": 2
+            }, 
+            {
+                "PointsToRankUp": 2
+            }
+        ]
+    },
+    {
+        "Name": "Explorer",
+        "Levels": [
+            {
+                "PointsToRankUp": 1
+            }, 
+            {
+                "PointsToRankUp": 2
+            }, 
+            {
+                "PointsToRankUp": 2
+            }, 
+            {
+                "PointsToRankUp": 2
+            }
+        ]
+    },
+    {
+        "Name": "Wayfarer",
+        "Levels": [
+            {
+                "PointsToRankUp": 2
+            }, 
+            {
+                "PointsToRankUp": 2
+            }, 
+            {
+                "PointsToRankUp": 2
+            }, 
+            {
+                "PointsToRankUp": 3
+            }
+        ]
+    },
+    {
+        "Name": "Navigator",
+        "Levels": [
+            {
+                "PointsToRankUp": 3
+            }, 
+            {
+                "PointsToRankUp": 3
+            }, 
+            {
+                "PointsToRankUp": 3
+            }, 
+            {
+                "PointsToRankUp": 4
+            }
+        ]
+    },
+    {
+        "Name": "Starseer",
+        "Levels": [
+            {
+                "PointsToRankUp": 3
+            }, 
+            {
+                "PointsToRankUp": 3
+            }, 
+            {
+                "PointsToRankUp": 4
+            },
+            {
+                "PointsToRankUp": 5
+            }
+        ]
+    }
+    
+]
