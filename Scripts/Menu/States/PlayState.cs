@@ -18,6 +18,7 @@ namespace Dawnshard.Menu
         }
 
         [SerializeField] private RankedMatchPopup rankedMatchPopup;
+        [SerializeField] private TrainingMatchPopup trainingMatchPopup;
         [SerializeField] private QuestMatchPopup questMatchPopup;
         [SerializeField] private GameObject deckParent;
         [SerializeField] private PopupOneButton popupOneButton;
@@ -47,6 +48,7 @@ namespace Dawnshard.Menu
             OnQuestMatchPressed();
             questMatchPopup.Close();
             rankedMatchPopup.Close();
+            trainingMatchPopup.Close();
         }
 
         private void OnReverseMatchPressed()
@@ -75,7 +77,6 @@ namespace Dawnshard.Menu
             }
             DeleteAllViews();
             currentState = PlayStateType.Quest;
-            questMatchPopup.IsSinglePlayer = true;
             ShowDecks();
         }
 
@@ -96,8 +97,7 @@ namespace Dawnshard.Menu
         private void OnTrainingMatchPressed()
         {
             DeleteAllViews();
-            currentState = PlayStateType.Ranked;
-            rankedMatchPopup.IsSinglePlayer = true;
+            currentState = PlayStateType.Friendly;
             ShowDecks();
         }
 
@@ -110,7 +110,6 @@ namespace Dawnshard.Menu
 
         private void DeleteAllViews()
         {
-            rankedMatchPopup.IsSinglePlayer = false;
             rankedMatchPopup.IsReverseMode = false;
             deckPresenters.Clear();
             foreach (Transform child in deckParent.transform)
@@ -119,6 +118,7 @@ namespace Dawnshard.Menu
             }
             questMatchPopup.Close();
             rankedMatchPopup.Close();
+            trainingMatchPopup.Close();
         }
 
         private void SelectDeck(DeckModel deck)
@@ -128,6 +128,11 @@ namespace Dawnshard.Menu
             {
                 rankedMatchPopup.SetDeckView(deck, () => EnableDecksInteraction(true));
                 rankedMatchPopup.Open();
+            }
+            else if (currentState == PlayStateType.Friendly)
+            {
+                trainingMatchPopup.SetDeckView(deck, () => EnableDecksInteraction(true));
+                trainingMatchPopup.Open();
             }
             else if (currentState == PlayStateType.Quest)
             {
